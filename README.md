@@ -13,6 +13,17 @@ Website khảo sát **Nhu cầu phát triển bản thân trong thời đại AI
 - Dùng HTML, CSS và JavaScript thuần; không cần cài đặt thư viện.
 - **Chưa thu thập được câu trả lời cho đến khi chủ website kết nối Google Sheets.** Website sẽ báo lỗi cấu hình thay vì giả vờ đã gửi thành công.
 
+
+## Thiết kế mới (cosmic responsive)
+
+- Toàn bộ website sử dụng phong cách thiên hà tím xanh theo mẫu Innerlab: minh họa người trẻ dưới ánh trăng, cổng ánh sáng, ngôi sao và thẻ khảo sát kính mờ.
+- Câu hỏi, lựa chọn và các nút đều là **HTML tương tác thực** (không phải văn bản in sẵn trên ảnh).
+- Hình ảnh vector trong `assets/cosmic-hero.svg` và `assets/learning-spark.svg` co giãn sắc nét trên màn hình độ phân giải cao.
+- CSS có bố cục linh hoạt cho desktop/tablet/mobile ở các mốc 900px, 700px, 420px; không dùng cố định chiều rộng theo một thiết bị duy nhất.
+- 3 hộp quà có hiệu ứng mở hộp và hình voucher hiển thị sau khi chọn; không phải hình chụp tĩnh.
+- **Hiển thị không giống hệt từng pixel giữa điện thoại và máy tính**: nội dung tự sắp xếp lại để giữ chữ dễ đọc, nút dễ chạm và tỷ lệ ảnh không bị méo.
+- Vào công cụ Developer Tools (Ctrl+Shift+M) trên Chrome để thử kích thước 360, 390, 768, 1024 và 1440 px. Kiểm tra cả Safari iOS và Chrome Android trước khi quảng bá rộng rãi.
+
 ## Xuất bản qua GitHub Pages
 
 1. Nếu muốn địa chỉ **https://innerlabvn.github.io/innerlab.survey/**, vào repository **Settings → General → Repository name**, đổi `you-ai-survey` thành `innerlab.survey`.
