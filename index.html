@@ -48,13 +48,15 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
 .reward-code-card{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:610px;margin:16px auto 22px;padding:17px 19px;text-align:left;background:linear-gradient(110deg,#303269cc,#3b286bc7);border:1px solid #b8b2fa9a;border-radius:16px;box-shadow:0 8px 30px #10153573}
 .reward-code-card>div{display:flex;flex-direction:column;gap:7px;min-width:0}.reward-caption,.thanks-code>span{font-size:10px;letter-spacing:.16em;color:#abffea;font-weight:800}.reward-value,.thanks-code strong{font-size:clamp(16px,2.5vw,24px);color:#fff6da;letter-spacing:.09em;font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.reward-code-card small,.thanks-code small{color:#c5c9e3;font-size:10px;line-height:1.5}.reward-copy{border:1px solid #91f5df99;color:#dbfff6;background:#8bf0d021;border-radius:11px;padding:10px 12px;white-space:nowrap;font-size:12px;font-weight:700;cursor:pointer}.reward-copy:hover{background:#8bf0d03a}.claim-code-label{max-width:610px;margin:0 auto 20px;padding:12px 16px;border-radius:12px;border:1px solid #b6aff084;text-align:center;background:#b8a7ff13;font-size:13px}.claim-code-label strong{color:#aeffe5;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.thanks-code{display:flex;flex-direction:column;gap:7px;max-width:600px;margin:22px auto;padding:18px;border:1px solid #a4cced88;background:#a2caff10;border-radius:14px}
 @media(max-width:470px){.reward-code-card{flex-direction:column;text-align:center}.reward-copy{width:100%}.reward-code-card>div{align-items:center}.reward-value{font-size:17px}}
+/* Optional, gentle sound effects; no background music or autoplay */
+.header-actions{display:flex;align-items:center;gap:10px}.sound-toggle{font:inherit;cursor:pointer;border:1px solid #b5adff87;border-radius:999px;background:#a9a5ff14;color:#f1ecff;padding:8px 14px;white-space:nowrap;min-height:40px;font-size:12px;font-weight:700;transition:background .2s,border-color .2s}.sound-toggle:hover,.sound-toggle[aria-pressed="true"]{background:#8bf0d025;border-color:#8bf0d0ac;color:#baffec}.sound-toggle:focus-visible{outline:3px solid #a9f9e4;outline-offset:3px}@media(max-width:630px){.header-actions{gap:7px}.header-actions .site-tag{display:none}.sound-toggle{padding:7px 10px;font-size:11px}.site-header{gap:8px}}@media(max-width:370px){.sound-toggle{font-size:10px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="site-header">
   <div class="brand-lockup"><span class="brand-star" aria-hidden="true">✦</span><div><span class="brand">Innerlab</span><small>Khám phá · Hiểu mình · Phát triển</small></div></div>
-  <div class="site-tag"><span aria-hidden="true">🎁</span> innerlab.survey</div>
+  <div class="header-actions"><button type="button" class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Bật hiệu ứng âm thanh" title="Bật hiệu ứng âm thanh">♪ Bật âm thanh</button><div class="site-tag"><span aria-hidden="true">🎁</span> innerlab.survey</div></div>
 </header>
 <section class="hero hero-fantasy" aria-labelledby="heroTitle">
   <img class="hero-scene" src="assets/cosmic-hero.svg" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
@@ -153,6 +155,54 @@ function ensureRewardCode(){if(!rewardCode)rewardCode=generateRewardCode();retur
 function showRewardCode(){const value=ensureRewardCode();for(const id of ['revealRewardCode','claimRewardCode','thanksRewardCode']){const node=document.getElementById(id);if(node)node.textContent=value;}}
 
 const $=id=>document.getElementById(id);
+/* Original synthesized interface sounds. Audio starts only after the visitor enables it. */
+let audioEnabled=false;
+let innerlabAudioContext=null;
+try{audioEnabled=window.localStorage.getItem('innerlab-audio-enabled')==='true';}catch(e){}
+function updateAudioToggle(){
+ const control=$('soundToggle');
+ const supported=Boolean(window.AudioContext||window.webkitAudioContext);
+ if(!supported){control.hidden=true;audioEnabled=false;return;}
+ control.setAttribute('aria-pressed',String(audioEnabled));
+ control.setAttribute('aria-label',audioEnabled?'Tắt hiệu ứng âm thanh':'Bật hiệu ứng âm thanh');
+ control.title=audioEnabled?'Tắt hiệu ứng âm thanh':'Bật hiệu ứng âm thanh';
+ control.textContent=audioEnabled?'♫ Âm thanh: Bật':'♪ Bật âm thanh';
+}
+function softNote(frequency,start,duration,volume=0.028,wave='sine'){
+ const ctx=innerlabAudioContext;
+ if(!ctx)return;
+ const oscillator=ctx.createOscillator(),envelope=ctx.createGain();
+ oscillator.type=wave;
+ oscillator.frequency.setValueAtTime(frequency,start);
+ envelope.gain.setValueAtTime(0,start);
+ envelope.gain.linearRampToValueAtTime(volume,start+0.016);
+ envelope.gain.exponentialRampToValueAtTime(0.0001,start+duration);
+ oscillator.connect(envelope).connect(ctx.destination);
+ oscillator.start(start);oscillator.stop(start+duration+0.02);
+}
+function playInnerlabSound(kind){
+ if(!audioEnabled)return;
+ try{
+  const AudioApi=window.AudioContext||window.webkitAudioContext;
+  if(!AudioApi)return;
+  if(!innerlabAudioContext)innerlabAudioContext=new AudioApi();
+  if(innerlabAudioContext.state==='suspended')innerlabAudioContext.resume().catch(()=>{});
+  const t=innerlabAudioContext.currentTime+0.008;
+  if(kind==='step'){softNote(587.33,t,.105,.017);softNote(783.99,t+.085,.14,.016);}
+  else if(kind==='back'){softNote(493.88,t,.11,.015);}
+  else if(kind==='pick'){softNote(392,t,.15,.025,'triangle');softNote(523.25,t+.12,.2,.023,'triangle');}
+  else if(kind==='gift'){[523.25,659.25,783.99,1046.5].forEach((f,i)=>softNote(f,t+i*.095,.32,.024));}
+  else if(kind==='success'){[523.25,659.25,783.99].forEach((f,i)=>softNote(f,t+i*.11,.23,.02));}
+  else {softNote(659.25,t,.10,.016);}
+ }catch(e){/* Audio is an optional enhancement; never block survey interactions. */}
+}
+$('soundToggle').addEventListener('click',()=>{
+ audioEnabled=!audioEnabled;
+ try{window.localStorage.setItem('innerlab-audio-enabled',String(audioEnabled));}catch(e){}
+ updateAudioToggle();
+ if(audioEnabled)playInnerlabSound('success');
+});
+updateAudioToggle();
 function escapeHtml(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function render(){
   const section=sections[step];
@@ -187,23 +237,23 @@ function valid(){for(const q of sections[step].questions){if(!q.required)continu
 
 function otherVisibility(){const v=document.querySelector('input[name="course_interest"]:checked')?.value;document.querySelectorAll('[data-other]').forEach(el=>el.style.display=v==='Khác (vui lòng ghi rõ lý do)'?'':'none');}
 $('surveyForm').addEventListener('change',e=>{if(e.target.name==='course_interest')otherVisibility();});
-$('back').onclick=()=>{collect();if(step>0){step--;render();$('survey').scrollIntoView({behavior:'smooth'});}};
+$('back').onclick=()=>{collect();if(step>0){playInnerlabSound('back');step--;render();$('survey').scrollIntoView({behavior:'smooth'});}};
 $('next').onclick=()=>{
  collect();if(!valid())return;
- if(step<sections.length-1){step++;render();$('survey').scrollIntoView({behavior:'smooth'});return;}
- ensureRewardCode();showRewardCode();$('surveyArea').classList.add('hidden');$('giftArea').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
+ if(step<sections.length-1){playInnerlabSound('step');step++;render();$('survey').scrollIntoView({behavior:'smooth'});return;}
+ playInnerlabSound('success');ensureRewardCode();showRewardCode();$('surveyArea').classList.add('hidden');$('giftArea').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
 };
 document.querySelectorAll('.gift-box').forEach(b=>b.addEventListener('click',()=>{
- if(chosenBox)return;chosenBox=b.dataset.box;
+ if(chosenBox)return;chosenBox=b.dataset.box;playInnerlabSound('pick');
  $('giftGrid').classList.add('is-opening');b.classList.add('open');
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  window.setTimeout(()=>{
-  $('giftPick').classList.add('hidden');$('giftReveal').classList.remove('hidden');showRewardCode();
+  $('giftPick').classList.add('hidden');$('giftReveal').classList.remove('hidden');showRewardCode();playInnerlabSound('gift');
   if(!reduced){const palette=['#8bf0d0','#c3a5ff','#f7cb80','#ffffff'];for(let i=0;i<52;i++){const p=document.createElement('span');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=palette[i%palette.length];p.style.animationDelay=Math.random()*.7+'s';$('confetti').appendChild(p);}window.setTimeout(()=>$('confetti').replaceChildren(),2900);}
   $('survey').scrollIntoView({behavior:'smooth'});
  },reduced?0:1250);
 }));
-$('claimStart').onclick=()=>{$('giftReveal').classList.add('hidden');$('giftClaim').classList.remove('hidden');showRewardCode();$('survey').scrollIntoView({behavior:'smooth'});};
+$('claimStart').onclick=()=>{playInnerlabSound('step');$('giftReveal').classList.add('hidden');$('giftClaim').classList.remove('hidden');showRewardCode();$('survey').scrollIntoView({behavior:'smooth'});};
 $('copyRewardCode').onclick=async()=>{try{await navigator.clipboard.writeText(ensureRewardCode());const button=$('copyRewardCode');button.textContent='✓ Đã sao chép';window.setTimeout(()=>button.textContent='📋 Sao chép mã',1800);}catch(e){const button=$('copyRewardCode');button.textContent='Chọn và sao chép mã phía trên';}};
 function cleanContact(){return {full_name:$('claimName').value.trim(),contact:$('claimContact').value.trim(),expert_field:document.querySelector('input[name="expert_field"]:checked')?.value||'',preferred_course:$('claimCourse').value};}
 function validVietnamMobile(raw){const phone=raw.replace(/[\s().-]/g,'');return /^(?:0[35789]\d{8}|\+84[35789]\d{8})$/.test(phone);}
@@ -218,7 +268,7 @@ async function sendSurvey(claim){
  const payload={...answers,...claim,reward_code:ensureRewardCode(),contact_optin:claim.gift_consent?'Có, tôi muốn nhận voucher và thông tin khóa học':'Không, tôi chỉ hoàn thành khảo sát',consent:true,gift_box:chosenBox||'',submitted_at:vietnamSubmittedTime(),survey_version:'3.1'};
  // no-cors submission cannot confirm database persistence. Do not claim verified delivery.
  await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
- $('giftArea').classList.add('hidden');$('thanks').classList.remove('hidden');showRewardCode();$('survey').scrollIntoView({behavior:'smooth'});
+ $('giftArea').classList.add('hidden');$('thanks').classList.remove('hidden');showRewardCode();playInnerlabSound('success');$('survey').scrollIntoView({behavior:'smooth'});
 }
 $('claimForm').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget,fields=cleanContact();
@@ -231,7 +281,7 @@ $('skipGift').onclick=async()=>{
  const btn=$('skipGift');btn.disabled=true;$('claimError').textContent='';
  try{await sendSurvey({full_name:'',contact:'',expert_field:'',preferred_course:'',gift_consent:false});}catch(err){$('claimError').textContent=err.message||'Không thể gửi. Vui lòng thử lại.';}finally{btn.disabled=false;}
 };
-$('restart').onclick=()=>{answers={};step=0;chosenBox=null;rewardCode='';$('surveyArea').classList.remove('hidden');$('giftArea').classList.add('hidden');$('giftPick').classList.remove('hidden');$('giftReveal').classList.add('hidden');$('giftClaim').classList.add('hidden');$('giftGrid').classList.remove('is-opening');document.querySelectorAll('.gift-box').forEach(b=>b.classList.remove('open'));$('claimForm').reset();$('thanks').classList.add('hidden');render();$('survey').scrollIntoView({behavior:'smooth'});};
+$('restart').onclick=()=>{playInnerlabSound('step');answers={};step=0;chosenBox=null;rewardCode='';$('surveyArea').classList.remove('hidden');$('giftArea').classList.add('hidden');$('giftPick').classList.remove('hidden');$('giftReveal').classList.add('hidden');$('giftClaim').classList.add('hidden');$('giftGrid').classList.remove('is-opening');document.querySelectorAll('.gift-box').forEach(b=>b.classList.remove('open'));$('claimForm').reset();$('thanks').classList.add('hidden');render();$('survey').scrollIntoView({behavior:'smooth'});};
 render();
 </script>
 </body>
