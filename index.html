@@ -43,6 +43,11 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
 @media(max-width:420px){.site-tag{font-size:10px}.brand-star{font-size:27px}.brand-lockup{gap:8px}.brand-lockup .brand{font-size:19px}.hero-fantasy{min-height:440px;padding:34px 12px 85px}.hero-fantasy h1{font-size:28px}.hero-benefits strong{font-size:9px}.hero-button{font-size:12px;padding:11px 15px}.desktop-break{display:none}.progress-label{font-size:10px}.survey-heading h2{font-size:22px}.gift-inner{padding:28px 14px 35px}.gift-grid{gap:4px;padding:3px}.gift-box{height:137px}.gift-box .gift-body{inset:55px 4% 25px}.gift-box .gift-lid{top:43px;left:0;right:0;height:25px}.gift-box .gift-ribbon-v{top:55px;bottom:25px}.gift-box .gift-ribbon-h{top:88px;left:4%;right:4%;height:15px}.gift-box .gift-bow{font-size:37px;top:5px}.gift-box .gift-num{font-size:9px}.gift-box:after{display:none}.gift-inner h2{font-size:25px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-button,.choice,.gift-box,.btn{transition:none!important}.gift-box,.gift-box *,.confetti-piece,.voucher,.consult{animation:none!important}}
 
+
+/* Individual reward ID */
+.reward-code-card{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:610px;margin:16px auto 22px;padding:17px 19px;text-align:left;background:linear-gradient(110deg,#303269cc,#3b286bc7);border:1px solid #b8b2fa9a;border-radius:16px;box-shadow:0 8px 30px #10153573}
+.reward-code-card>div{display:flex;flex-direction:column;gap:7px;min-width:0}.reward-caption,.thanks-code>span{font-size:10px;letter-spacing:.16em;color:#abffea;font-weight:800}.reward-value,.thanks-code strong{font-size:clamp(16px,2.5vw,24px);color:#fff6da;letter-spacing:.09em;font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.reward-code-card small,.thanks-code small{color:#c5c9e3;font-size:10px;line-height:1.5}.reward-copy{border:1px solid #91f5df99;color:#dbfff6;background:#8bf0d021;border-radius:11px;padding:10px 12px;white-space:nowrap;font-size:12px;font-weight:700;cursor:pointer}.reward-copy:hover{background:#8bf0d03a}.claim-code-label{max-width:610px;margin:0 auto 20px;padding:12px 16px;border-radius:12px;border:1px solid #b6aff084;text-align:center;background:#b8a7ff13;font-size:13px}.claim-code-label strong{color:#aeffe5;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.thanks-code{display:flex;flex-direction:column;gap:7px;max-width:600px;margin:22px auto;padding:18px;border:1px solid #a4cced88;background:#a2caff10;border-radius:14px}
+@media(max-width:470px){.reward-code-card{flex-direction:column;text-align:center}.reward-copy{width:100%}.reward-code-card>div{align-items:center}.reward-value{font-size:17px}}
 </style>
 </head>
 <body>
@@ -86,23 +91,25 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
     <div class="voucher-left"><span class="voucher-brand">innerlab<span>.</span>survey</span><div class="voucher-amount">199K</div><div class="voucher-title">VOUCHER KHÓA HỌC</div><span class="voucher-small">Giá trị 199.000đ · Áp dụng theo điều kiện chương trình</span></div>
     <div class="voucher-right"><span>✦</span><strong>DISCOVERY<br>GIFT</strong><small>YOUR NEXT CHAPTER</small></div>
   </div>
-  <div class="consult"><div class="consult-icon">✧</div><div><strong>+ 01 buổi tư vấn 1:1 miễn phí</strong><p>Cùng chuyên gia trong lĩnh vực bạn chọn: <b>Tarot · Thần số học · Chiêm tinh học · Tử vi</b></p></div></div>
+  <div class="consult"><div class="consult-icon">✧</div><div><strong>+ 01 buổi gặp gỡ 1:1 miễn phí</strong><p>Khám phá chủ đề bạn quan tâm: <b>Tarot · Thần số học · Chiêm tinh học · Tử vi · Khám phá tính cách</b></p></div></div>
+  <div class="reward-code-card"><div><span class="reward-caption">MÃ NHẬN QUÀ CỦA BẠN</span><strong class="reward-value" id="revealRewardCode">—</strong><small>Hãy lưu lại mã để đối chiếu. Mã chỉ được xác nhận khi đăng ký của bạn được Innerlab ghi nhận.</small></div><button type="button" class="reward-copy" id="copyRewardCode">📋 Sao chép mã</button></div>
   <p class="gift-caption">Voucher không phải tiền mặt. Điều kiện sử dụng và lịch tư vấn sẽ được xác nhận khi đăng ký.</p>
   <button type="button" class="btn primary claim-btn" id="claimStart">Nhận quà ngay →</button>
  </div>
  <div id="giftClaim" class="gift-inner hidden">
-  <div class="eyebrow">YOUR GIFT · INNERLAB</div><h2>Đăng ký nhận quà 🎁</h2><p>Chọn lĩnh vực bạn quan tâm và để lại thông tin để chúng mình liên hệ trao quà.</p>
+  <div class="eyebrow">YOUR GIFT · INNERLAB</div><h2>Đăng ký nhận quà 🎁</h2><p>Chọn chủ đề bạn muốn khám phá và để lại số điện thoại / Zalo để chúng mình liên hệ trao quà.</p><div class="claim-code-label">Mã nhận quà: <strong id="claimRewardCode">—</strong></div>
   <form id="claimForm" novalidate>
    <div class="question"><label class="q-label" for="claimName">Họ và tên <span class="star">*</span></label><input class="field" id="claimName" name="full_name" maxlength="100" autocomplete="name" required placeholder="Tên của bạn"></div>
    <div class="question"><label class="q-label" for="claimContact">Số điện thoại / Zalo <span class="star">*</span></label><input class="field" id="claimContact" name="contact" type="tel" inputmode="tel" autocomplete="tel" maxlength="18" required placeholder="Ví dụ: 0912 345 678"><p class="hint">Ưu tiên số điện thoại có Zalo để Innerlab thuận tiện gửi thông tin nhận quà.</p></div>
-   <fieldset class="question"><legend class="q-label">Lĩnh vực tư vấn 1:1 bạn muốn chọn <span class="star">*</span></legend><div class="options two">
+   <fieldset class="question"><legend class="q-label">Bạn muốn khám phá chủ đề nào trong buổi gặp 1:1? <span class="star">*</span></legend><div class="options two">
     <label class="choice"><input type="radio" name="expert_field" value="Tarot" required> Tarot</label>
     <label class="choice"><input type="radio" name="expert_field" value="Thần số học"> Thần số học</label>
     <label class="choice"><input type="radio" name="expert_field" value="Chiêm tinh học"> Chiêm tinh học</label>
     <label class="choice"><input type="radio" name="expert_field" value="Tử vi"> Tử vi</label>
+    <label class="choice"><input type="radio" name="expert_field" value="Khám phá tính cách"> Khám phá tính cách</label>
    </div></fieldset>
    <div class="question"><label class="q-label" for="claimCourse">Khóa học bạn quan tâm <span class="star">*</span></label><select class="field" name="preferred_course" id="claimCourse" required><option value="">Chọn lĩnh vực học</option><option>Hiểu và khám phá bản thân</option><option>Giao tiếp và sự tự tin</option><option>Định hướng tương lai</option><option>Ứng dụng AI</option><option>Khác / Chưa xác định</option></select></div>
-   <label class="agree"><input type="checkbox" name="gift_consent" required><span>Tôi đồng ý để Innerlab liên hệ qua số điện thoại / Zalo tôi cung cấp nhằm gửi voucher, sắp xếp buổi tư vấn và giới thiệu các khóa học liên quan. Tôi có thể từ chối các liên hệ quảng bá sau đó.</span></label>
+   <label class="agree"><input type="checkbox" name="gift_consent" required><span>Tôi đồng ý để Innerlab liên hệ qua số điện thoại / Zalo tôi cung cấp nhằm gửi voucher, sắp xếp buổi gặp 1:1 và giới thiệu các khóa học liên quan. Tôi có thể từ chối các liên hệ quảng bá sau đó.</span></label>
    <p id="claimError" class="error" role="alert" aria-live="polite"></p>
    <button type="submit" class="btn primary claim-btn" id="claimSubmit">Đăng ký nhận quà ✦</button>
   </form>
@@ -110,7 +117,7 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
  </div>
 </section>
 
-<div class="thanks hidden" id="thanks"><strong>✦</strong><h2>Cảm ơn bạn đã chia sẻ!</h2><p>Yêu cầu đã được gửi từ trình duyệt. Việc lưu vào Google Sheets chưa được xác minh tự động; Innerlab sẽ liên hệ khi đã nhận được đăng ký.</p><button class="btn secondary" type="button" id="restart">Làm khảo sát mới</button></div>
+<div class="thanks hidden" id="thanks"><strong>✦</strong><h2>Cảm ơn bạn đã chia sẻ!</h2><p>Yêu cầu đã gửi từ trình duyệt nhưng chưa thể tự động xác minh Google Sheets đã lưu thành công. Innerlab sẽ liên hệ khi ghi nhận đăng ký.</p><div class="thanks-code"><span>MÃ NHẬN QUÀ</span><strong id="thanksRewardCode">—</strong><small>Hãy lưu mã này để đối chiếu. Chỉ có hiệu lực khi Innerlab xác nhận.</small></div><button class="btn secondary" type="button" id="restart">Làm khảo sát mới</button></div>
 </main>
 <footer>innerlab.survey · Grow with purpose · 2026</footer>
 </div>
@@ -140,7 +147,11 @@ const sections=[
 {id:'course_interest_other',label:'Bạn muốn chia sẻ lý do hoặc nhu cầu khác?',type:'text',required:false,placeholder:'Viết lý do hoặc nhu cầu của bạn...',depends:true},
 {id:'time',label:'Bạn thường thuận tiện tham gia khi nào?',type:'radio',required:true,options:['Tối các ngày trong tuần','Cuối tuần buổi sáng','Cuối tuần buổi chiều','Cuối tuần buổi tối','Linh hoạt theo lịch']}
 ]}];
-let step=0;let answers={};let chosenBox=null;
+let step=0;let answers={};let chosenBox=null;let rewardCode='';
+function generateRewardCode(){const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';const random=new Uint8Array(16);window.crypto.getRandomValues(random);const chars=Array.from(random,n=>alphabet[n&31]).join('');return 'IL-'+chars.match(/.{4}/g).join('-');}
+function ensureRewardCode(){if(!rewardCode)rewardCode=generateRewardCode();return rewardCode;}
+function showRewardCode(){const value=ensureRewardCode();for(const id of ['revealRewardCode','claimRewardCode','thanksRewardCode']){const node=document.getElementById(id);if(node)node.textContent=value;}}
+
 const $=id=>document.getElementById(id);
 function escapeHtml(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function render(){
@@ -180,28 +191,29 @@ $('back').onclick=()=>{collect();if(step>0){step--;render();$('survey').scrollIn
 $('next').onclick=()=>{
  collect();if(!valid())return;
  if(step<sections.length-1){step++;render();$('survey').scrollIntoView({behavior:'smooth'});return;}
- $('surveyArea').classList.add('hidden');$('giftArea').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
+ ensureRewardCode();showRewardCode();$('surveyArea').classList.add('hidden');$('giftArea').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
 };
 document.querySelectorAll('.gift-box').forEach(b=>b.addEventListener('click',()=>{
  if(chosenBox)return;chosenBox=b.dataset.box;
  $('giftGrid').classList.add('is-opening');b.classList.add('open');
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  window.setTimeout(()=>{
-  $('giftPick').classList.add('hidden');$('giftReveal').classList.remove('hidden');
+  $('giftPick').classList.add('hidden');$('giftReveal').classList.remove('hidden');showRewardCode();
   if(!reduced){const palette=['#8bf0d0','#c3a5ff','#f7cb80','#ffffff'];for(let i=0;i<52;i++){const p=document.createElement('span');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=palette[i%palette.length];p.style.animationDelay=Math.random()*.7+'s';$('confetti').appendChild(p);}window.setTimeout(()=>$('confetti').replaceChildren(),2900);}
   $('survey').scrollIntoView({behavior:'smooth'});
  },reduced?0:1250);
 }));
-$('claimStart').onclick=()=>{$('giftReveal').classList.add('hidden');$('giftClaim').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});};
+$('claimStart').onclick=()=>{$('giftReveal').classList.add('hidden');$('giftClaim').classList.remove('hidden');showRewardCode();$('survey').scrollIntoView({behavior:'smooth'});};
+$('copyRewardCode').onclick=async()=>{try{await navigator.clipboard.writeText(ensureRewardCode());const button=$('copyRewardCode');button.textContent='✓ Đã sao chép';window.setTimeout(()=>button.textContent='📋 Sao chép mã',1800);}catch(e){const button=$('copyRewardCode');button.textContent='Chọn và sao chép mã phía trên';}};
 function cleanContact(){return {full_name:$('claimName').value.trim(),contact:$('claimContact').value.trim(),expert_field:document.querySelector('input[name="expert_field"]:checked')?.value||'',preferred_course:$('claimCourse').value};}
 function validVietnamMobile(raw){const phone=raw.replace(/[\s().-]/g,'');return /^(?:0[35789]\d{8}|\+84[35789]\d{8})$/.test(phone);}
 async function sendSurvey(claim){
  const endpoint=GOOGLE_SCRIPT_URL.trim();
  if(!endpoint)throw Error('Chưa cấu hình Google Sheets. Người quản trị cần thêm đường dẫn Apps Script để lưu đăng ký.');
- const payload={...answers,...claim,contact_optin:claim.gift_consent?'Có, tôi muốn nhận voucher và thông tin khóa học':'Không, tôi chỉ hoàn thành khảo sát',consent:true,gift_box:chosenBox||'',submitted_at:new Date().toISOString(),survey_version:'2.0'};
+ const payload={...answers,...claim,reward_code:ensureRewardCode(),contact_optin:claim.gift_consent?'Có, tôi muốn nhận voucher và thông tin khóa học':'Không, tôi chỉ hoàn thành khảo sát',consent:true,gift_box:chosenBox||'',submitted_at:new Date().toISOString(),survey_version:'3.0'};
  // no-cors submission cannot confirm database persistence. Do not claim verified delivery.
  await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
- $('giftArea').classList.add('hidden');$('thanks').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
+ $('giftArea').classList.add('hidden');$('thanks').classList.remove('hidden');showRewardCode();$('survey').scrollIntoView({behavior:'smooth'});
 }
 $('claimForm').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget,fields=cleanContact();
@@ -214,7 +226,7 @@ $('skipGift').onclick=async()=>{
  const btn=$('skipGift');btn.disabled=true;$('claimError').textContent='';
  try{await sendSurvey({full_name:'',contact:'',expert_field:'',preferred_course:'',gift_consent:false});}catch(err){$('claimError').textContent=err.message||'Không thể gửi. Vui lòng thử lại.';}finally{btn.disabled=false;}
 };
-$('restart').onclick=()=>{answers={};step=0;chosenBox=null;$('surveyArea').classList.remove('hidden');$('giftArea').classList.add('hidden');$('giftPick').classList.remove('hidden');$('giftReveal').classList.add('hidden');$('giftClaim').classList.add('hidden');$('giftGrid').classList.remove('is-opening');document.querySelectorAll('.gift-box').forEach(b=>b.classList.remove('open'));$('claimForm').reset();$('thanks').classList.add('hidden');render();$('survey').scrollIntoView({behavior:'smooth'});};
+$('restart').onclick=()=>{answers={};step=0;chosenBox=null;rewardCode='';$('surveyArea').classList.remove('hidden');$('giftArea').classList.add('hidden');$('giftPick').classList.remove('hidden');$('giftReveal').classList.add('hidden');$('giftClaim').classList.add('hidden');$('giftGrid').classList.remove('is-opening');document.querySelectorAll('.gift-box').forEach(b=>b.classList.remove('open'));$('claimForm').reset();$('thanks').classList.add('hidden');render();$('survey').scrollIntoView({behavior:'smooth'});};
 render();
 </script>
 </body>
