@@ -45,14 +45,16 @@ const sections=[
 ]},
 {title:'Trải nghiệm bạn mong đợi',sub:'Giúp chúng mình thiết kế hoạt động phù hợp hơn.',questions:[
 {id:'topics',label:'Chủ đề nào khiến bạn muốn tham gia nhất?',type:'check',required:true,options:['Hiểu bản thân trong thời đại AI','Kỹ năng ứng dụng AI thực tế','Khám phá thế mạnh và định hướng tương lai','Phát triển giọng nói và giao tiếp','Quản lý cảm xúc và sự tự tin','Tư duy sáng tạo / Giải quyết vấn đề']},
-{id:'format',label:'Hình thức nào phù hợp nhất với bạn?',type:'radio',required:true,options:['Workshop trải nghiệm trực tiếp','Lớp thực hành nhóm nhỏ','Buổi chia sẻ / Talkshow','Online tương tác','Tư vấn cá nhân 1–1']},
+{id:'format',label:'Hình thức nào phù hợp nhất với bạn?',type:'radio',required:true,options:['Workshop trải nghiệm trực tiếp','Lớp thực hành nhóm nhỏ','Buổi chia sẻ / Talkshow','Online tương tác','Coaching 1:1']},
+{id:'course_interest',label:'Bạn muốn Innerlab đồng hành cùng bạn theo cách nào?',type:'radio',required:true,options:['Đăng ký khóa học phát triển bản thân','Nhận tư vấn chọn khóa học phù hợp','Tìm hiểu voucher ưu đãi khóa học','Khác (vui lòng ghi rõ lý do)']},
+{id:'course_interest_other',label:'Bạn muốn chia sẻ lý do hoặc nhu cầu khác?',type:'text',required:false,placeholder:'Viết lý do hoặc nhu cầu của bạn...',depends:true},
 {id:'time',label:'Bạn thường thuận tiện tham gia khi nào?',type:'radio',required:true,options:['Tối các ngày trong tuần','Cuối tuần buổi sáng','Cuối tuần buổi chiều','Cuối tuần buổi tối','Linh hoạt theo lịch']}
 ]},
-{title:'Giữ kết nối',sub:'Bạn có thể hoàn tất khảo sát mà không để lại thông tin cá nhân.',questions:[
-{id:'contact_optin',label:'Bạn có muốn nhận thông tin về các workshop phù hợp không?',type:'radio',required:true,options:['Có, tôi muốn nhận thông tin','Không, cảm ơn']},
-{id:'full_name',label:'Tên bạn (tùy chọn)',type:'input',required:false,placeholder:'Tên muốn được gọi...',contact:true},
-{id:'contact',label:'Email hoặc số điện thoại (tùy chọn)',type:'input',required:false,placeholder:'Thông tin liên hệ...',contact:true},
-{id:'consent',label:'Tôi đồng ý cho innerlab.survey xử lý các câu trả lời để tổng hợp nhu cầu; nếu đăng ký nhận thông tin, tôi đồng ý được liên hệ về các hoạt động phù hợp.',type:'consent',required:true}
+{title:'Một món quà cho hành trình của bạn',sub:'Nhận voucher ưu đãi và thông tin về những khóa học phù hợp, nếu bạn muốn kết nối cùng Innerlab.',questions:[
+{id:'contact_optin',label:'Bạn muốn nhận voucher ưu đãi và thông tin về các khóa học phát triển bản thân?',type:'radio',required:true,options:['Có, tôi muốn nhận voucher và thông tin khóa học','Không, tôi chỉ hoàn thành khảo sát']},
+{id:'full_name',label:'Tên của bạn',type:'input',required:false,placeholder:'Tên muốn được gọi...',contact:true},
+{id:'contact',label:'Email hoặc số điện thoại để nhận voucher',type:'input',required:false,placeholder:'Thông tin liên hệ...',contact:true},
+{id:'consent',label:'Tôi đồng ý cho innerlab.survey xử lý câu trả lời để tổng hợp khảo sát. Nếu chọn nhận voucher, tôi đồng ý nhận thông tin về voucher và các khóa học qua thông tin liên hệ đã cung cấp; tôi có thể từ chối các liên hệ tiếp theo.',type:'consent',required:true}
 ]}];
 let step=0;let answers={};
 const $=id=>document.getElementById(id);
@@ -63,20 +65,21 @@ let markup='<div class="section-tag">Khám phá · '+(step+1).toString().padStar
 for(let n=0;n<s.questions.length;n++){let q=s.questions[n],label='<span class="section-tag">'+(n+1).toString().padStart(2,'0')+'. </span>'+escapeHtml(q.label)+(q.required?' <span class="star">*</span>':'');
 if(q.type==='radio'||q.type==='check'){markup+='<fieldset class="question" data-question="'+q.id+'"><legend>'+label+'</legend>'+(q.type==='check'?'<p class="hint">Có thể chọn nhiều đáp án</p>':'')+'<div class="options '+(q.options.length>=6?'two':'')+'">'+q.options.map(v=>'<label class="choice"><input type="'+(q.type==='check'?'checkbox':'radio')+'" name="'+q.id+'" value="'+escapeHtml(v)+'" '+(q.type==='check'?(Array.isArray(answers[q.id])&&answers[q.id].includes(v)?'checked':''):(answers[q.id]===v?'checked':''))+'><span>'+escapeHtml(v)+'</span></label>').join('')+'</div></fieldset>';}
 else if(q.type==='consent'){markup+='<label class="agree"><input type="checkbox" name="'+q.id+'" '+(answers[q.id]?'checked':'')+'><span>'+escapeHtml(q.label)+'</span></label>';}
-else{markup+='<div class="question" '+(q.contact?'data-contact="true"':'')+'><label class="q-label" for="'+q.id+'">'+label+'</label>'+(q.type==='text'?'<textarea':'<input type="text"')+' class="field" id="'+q.id+'" name="'+q.id+'" placeholder="'+escapeHtml(q.placeholder||'')+'" '+(q.type==='text'?'>'+escapeHtml(answers[q.id]||'')+'</textarea>':'value="'+escapeHtml(answers[q.id]||'')+'">')+'</div>';}}
-if(step===4)markup+='<div class="notice">Thông tin liên hệ hoàn toàn tự nguyện. Bạn có thể yêu cầu xóa dữ liệu qua kênh liên hệ do đơn vị tổ chức công bố.</div>';
-$('stepArea').innerHTML=markup;$('back').style.visibility=step===0?'hidden':'visible';$('next').textContent=step===4?'Gửi khảo sát ✦':'Tiếp tục →';$('error').textContent='';contactVisibility();
+else{markup+='<div class="question" '+(q.contact?'data-contact="true"':'')+(q.depends?'data-other="true"':'')+'><label class="q-label" for="'+q.id+'">'+label+'</label>'+(q.type==='text'?'<textarea':'<input type="text"')+' class="field" id="'+q.id+'" name="'+q.id+'" placeholder="'+escapeHtml(q.placeholder||'')+'" '+(q.type==='text'?'>'+escapeHtml(answers[q.id]||'')+'</textarea>':'value="'+escapeHtml(answers[q.id]||'')+'">')+'</div>';}}
+if(step===4)markup+='<div class="notice">🎁 Đăng ký nhận thông tin để nhận voucher ưu đãi khóa học khi chương trình phát hành. Giá trị voucher, hạn dùng và điều kiện áp dụng sẽ được thông báo rõ. Bạn vẫn có thể hoàn tất khảo sát mà không đăng ký.</div>';
+$('stepArea').innerHTML=markup;$('back').style.visibility=step===0?'hidden':'visible';$('next').textContent=step===4?'Gửi khảo sát ✦':'Tiếp tục →';$('error').textContent='';contactVisibility();otherVisibility();
 }
 function collect(){sections[step].questions.forEach(q=>{let els=Array.from(document.getElementsByName(q.id));if(q.type==='check')answers[q.id]=els.filter(x=>x.checked).map(x=>x.value);else if(q.type==='radio')answers[q.id]=els.find(x=>x.checked)?.value||'';else if(q.type==='consent')answers[q.id]=Boolean(els[0]?.checked);else answers[q.id]=els[0]?.value.trim()||'';});}
-function valid(){for(const q of sections[step].questions){if(!q.required)continue;const v=answers[q.id];if(!v||(Array.isArray(v)&&!v.length)){$('error').textContent='Vui lòng hoàn thành những câu có dấu * trước khi tiếp tục.';return false;}}return true;}
-function contactVisibility(){let show=document.querySelector('input[name="contact_optin"]:checked')?.value==='Có, tôi muốn nhận thông tin';document.querySelectorAll('[data-contact]').forEach(el=>el.style.display=show?'':'none');}
-$('surveyForm').addEventListener('change',e=>{if(e.target.name==='contact_optin')contactVisibility();});
+function valid(){for(const q of sections[step].questions){if(!q.required)continue;const v=answers[q.id];if(!v||(Array.isArray(v)&&!v.length)){$('error').textContent='Vui lòng hoàn thành những câu có dấu * trước khi tiếp tục.';return false;}}if(step===3&&answers.course_interest==='Khác (vui lòng ghi rõ lý do)'&&!answers.course_interest_other){$('error').textContent='Vui lòng điền lý do hoặc nhu cầu khác.';return false;}if(step===4&&answers.contact_optin==='Có, tôi muốn nhận voucher và thông tin khóa học'&&(!answers.full_name||!answers.contact)){$('error').textContent='Để nhận voucher, vui lòng nhập tên và email hoặc số điện thoại.';return false;}return true;}
+function contactVisibility(){let show=document.querySelector('input[name="contact_optin"]:checked')?.value==='Có, tôi muốn nhận voucher và thông tin khóa học';document.querySelectorAll('[data-contact]').forEach(el=>el.style.display=show?'':'none');}
+function otherVisibility(){let show=document.querySelector('input[name="course_interest"]:checked')?.value==='Khác (vui lòng ghi rõ lý do)';document.querySelectorAll('[data-other]').forEach(el=>el.style.display=show?'':'none');}
+$('surveyForm').addEventListener('change',e=>{if(e.target.name==='contact_optin')contactVisibility();if(e.target.name==='course_interest')otherVisibility();});
 $('back').onclick=()=>{collect();if(step>0){step--;render();$('survey').scrollIntoView({behavior:'smooth'});}};
 $('next').onclick=async()=>{
 collect();if(!valid())return;
 if(step<sections.length-1){step++;render();$('survey').scrollIntoView({behavior:'smooth'});return;}
 const button=$('next');button.disabled=true;button.textContent='Đang gửi...';$('error').textContent='';
-if(answers.contact_optin!=='Có, tôi muốn nhận thông tin'){answers.full_name='';answers.contact='';}
+if(answers.contact_optin!=='Có, tôi muốn nhận voucher và thông tin khóa học'){answers.full_name='';answers.contact='';}
 try{
 if(!GOOGLE_SCRIPT_URL)throw Error('Website chưa được kết nối Google Sheets. Người quản trị cần cấu hình GOOGLE_SCRIPT_URL trước khi mở khảo sát.');
 await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...answers,submitted_at:new Date().toISOString(),survey_version:'1.0'})});
