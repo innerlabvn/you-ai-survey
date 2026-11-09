@@ -12,15 +12,64 @@
 <style>
 :root{color-scheme:dark;--bg:#090e1e;--card:#151e34;--text:#f2f5ff;--muted:#aebbd3;--mint:#8bf0d0;--border:#34405b;--purple:#a9a5ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 5%,#23224e 0,transparent 42%),radial-gradient(ellipse at 0 50%,#11353e 0,transparent 35%),var(--bg);color:var(--text);font:14px/1.7 "Be Vietnam Pro",system-ui,sans-serif;min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(100% - 32px,900px);margin:auto}header{padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:19px;font-weight:800;letter-spacing:-.05em}.brand b{color:var(--mint)}.pill{border:1px solid var(--border);border-radius:99px;padding:6px 12px;color:var(--muted);font-size:10px;white-space:nowrap}.hero{text-align:center;padding:42px 0 36px}.eyebrow{font-size:11px;letter-spacing:.23em;text-transform:uppercase;color:var(--mint);font-weight:700}.hero h1{font-size:clamp(34px,6.4vw,65px);line-height:1.23;letter-spacing:-.055em;margin:12px auto 20px;max-width:780px}.hero h1 span{background:linear-gradient(100deg,var(--mint),#a8beff,var(--purple));color:transparent;background-clip:text}.hero p{color:var(--muted);max-width:650px;margin:0 auto 22px}.chips{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}.chips span{font-size:11px;padding:7px 13px;background:#ffffff0a;border:1px solid var(--border);border-radius:99px;color:#d1dcf0}.card{background:linear-gradient(155deg,#19233b,#10192e);border:1px solid #3a4861;border-radius:23px;overflow:hidden;box-shadow:0 20px 70px #0005}.progress{padding:25px 32px 20px;border-bottom:1px solid var(--border)}.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-weight:600;margin-bottom:12px}.track{height:6px;background:#354059;border-radius:100px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--mint),var(--purple));width:20%;transition:width .25s}.body{padding:30px 32px 34px}.section-tag{color:var(--mint);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em}h2{font-size:clamp(23px,4vw,29px);line-height:1.35;letter-spacing:-.035em;margin:9px 0}p.sub{color:var(--muted);margin:0 0 28px}.question{border:0;padding:0;margin:0 0 27px;min-width:0}.question legend,.q-label{font-weight:600;font-size:14px;line-height:1.6;display:block;margin:0 0 11px}.star{color:#ffa3ac}.options{display:grid;gap:10px}.options.two{grid-template-columns:1fr 1fr}.choice{display:flex;align-items:center;gap:12px;background:#ffffff04;border:1px solid var(--border);border-radius:12px;padding:12px 14px;min-height:52px;cursor:pointer;font-size:12px}.choice:hover,.choice:has(input:checked){border-color:var(--mint);background:#8bf0d011}.choice input{accent-color:var(--mint);flex:0 0 auto;width:16px;height:16px}.field{background:#070e1d66;color:white;border:1px solid var(--border);border-radius:11px;width:100%;padding:13px 15px;outline:0}.field:focus{border-color:var(--mint)}textarea.field{min-height:105px;resize:vertical}.hint{font-size:11px;color:var(--muted);margin:0 0 10px}.nav{border-top:1px solid var(--border);padding-top:22px;margin-top:8px;display:flex;justify-content:space-between;gap:12px}.btn{border:0;border-radius:12px;min-height:47px;padding:12px 22px;font-weight:700;font-size:13px}.primary{color:#092530;background:linear-gradient(100deg,var(--mint),#a5bcff)}.secondary{color:var(--text);background:#ffffff10;border:1px solid var(--border)}.btn:disabled{opacity:.5;cursor:wait}.error{min-height:20px;color:#ffb1b9;font-size:12px;margin-top:12px}.privacy{padding:0 32px 26px;color:var(--muted);font-size:11px}.notice{border:1px solid var(--border);border-radius:12px;padding:15px 17px;color:var(--muted);font-size:12px;background:#8bf0d009;margin-bottom:20px}.agree{display:flex;align-items:flex-start;gap:11px;color:var(--muted);font-size:12px;margin:16px 0}.agree input{margin-top:7px;accent-color:var(--mint)}.thanks{text-align:center;padding:55px 20px}.thanks strong{font-size:52px;color:var(--mint)}.thanks h2{font-size:29px}.thanks p{color:var(--muted);max-width:520px;margin:0 auto 23px}.hidden{display:none!important}footer{text-align:center;font-size:11px;color:#8493af;padding:27px 0 40px}@media(max-width:600px){header{padding:21px 0}.pill{font-size:9px}.hero{padding:27px 0}.card{border-radius:17px}.progress{padding:20px}.body{padding:23px 20px 26px}.privacy{padding:0 20px 22px}.options.two{grid-template-columns:1fr}.btn{padding:11px 17px}}
+
+.gift-area{position:relative;overflow:hidden;text-align:center;background:radial-gradient(circle at 50% 12%,#29305a,transparent 64%),#121a30}.gift-inner{padding:45px clamp(18px,5vw,45px);position:relative}.gift-inner h2{font-size:clamp(24px,4vw,36px);margin:12px 0}.gift-inner>p{color:var(--muted);max-width:580px;margin:0 auto 26px}.gift-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(5px,2vw,22px);margin:37px auto 15px;max-width:670px}.gift-box{--box1:#67dec1;--box2:#278f83;--ribbon:#e9ffff;position:relative;isolation:isolate;height:190px;background:none;border:0;outline-offset:3px;transition:transform .25s;filter:drop-shadow(0 15px 19px #0007)}.gift-box:hover,.gift-box:focus-visible{transform:translateY(-9px) scale(1.045)}.gift-box.lilac{--box1:#b6a2fa;--box2:#6652b7;--ribbon:#faf1ff}.gift-box.gold{--box1:#f7c87a;--box2:#bc8047;--ribbon:#fff8de}.gift-body,.gift-lid,.gift-ribbon-h,.gift-ribbon-v,.gift-bow,.gift-glow{position:absolute;display:block}.gift-body{inset:62px 13% 26px;border-radius:8px;background:linear-gradient(120deg,var(--box1),var(--box2));box-shadow:inset 0 0 0 2px #fff2}.gift-lid{height:31px;top:47px;left:8%;right:8%;border-radius:7px;background:linear-gradient(120deg,var(--box1),var(--box2));z-index:3;box-shadow:0 4px 8px #0004}.gift-ribbon-v{width:21%;height:100px;background:var(--ribbon);top:62px;left:39.5%;opacity:.8;z-index:2}.gift-ribbon-h{height:19px;left:13%;right:13%;top:106px;background:var(--ribbon);opacity:.85;z-index:2}.gift-bow{top:15px;left:calc(50% - 23px);font-size:54px;color:var(--ribbon);z-index:5;filter:drop-shadow(0 3px 5px #0004)}.gift-num{position:absolute;bottom:0;left:0;right:0;color:var(--text);font-size:11px;letter-spacing:.12em;font-weight:800}.gift-glow{inset:14px;background:radial-gradient(circle,#ffffff33,transparent 65%);opacity:0;transition:opacity .2s}.gift-box:hover .gift-glow{opacity:1}.gift-box.open{animation:boxShake .5s ease-in-out}.gift-box.open .gift-lid{animation:lidFly .9s .45s forwards}.gift-box.open .gift-bow{animation:lidFly .9s .45s forwards}.gift-box.open .gift-body{animation:boxDisappear .9s .65s forwards}.gift-box.open .gift-glow{opacity:1;animation:glowBurst 1.2s forwards}.gift-grid.is-opening .gift-box:not(.open){opacity:.2;pointer-events:none}.gift-caption{font-size:11px!important;color:#aab6d2!important}.voucher{display:flex;max-width:610px;text-align:left;margin:30px auto 21px;min-height:205px;border-radius:19px;overflow:hidden;background:linear-gradient(120deg,#e7ffe9 0%,#a1f2d5 47%,#bdb5fc 100%);color:#12313c;box-shadow:0 14px 49px #8bf0d02b;animation:cardArrival .75s both}.voucher-left{flex:3;padding:24px;display:flex;flex-direction:column}.voucher-brand{font-weight:800;letter-spacing:-.04em}.voucher-brand span{color:#7b57d4}.voucher-amount{font-size:clamp(55px,10vw,84px);line-height:1.2;letter-spacing:-.075em;font-weight:800}.voucher-title{font-weight:800;letter-spacing:.13em;font-size:12px}.voucher-small{font-size:10px;margin-top:auto}.voucher-right{border-left:2px dashed #57777f66;flex:1;min-width:105px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:11px;background:#ffffff30;padding:12px}.voucher-right>span{font-size:38px}.voucher-right strong{font-size:13px;line-height:1.5}.voucher-right small{font-size:8px;letter-spacing:.09em}.consult{max-width:610px;margin:0 auto 18px;padding:20px;border:1px solid #8bf0d055;border-radius:16px;display:flex;align-items:center;text-align:left;gap:15px;background:#8bf0d00b;animation:cardArrival .75s .18s both}.consult-icon{font-size:45px;color:var(--mint)}.consult strong{font-size:17px}.consult p{font-size:12px;color:var(--muted);margin:6px 0 0}.consult b{color:#e0e5ff}.claim-btn{display:block;margin:22px auto 0;width:min(100%,360px);font-size:15px}.gift-inner form{max-width:610px;margin:26px auto 0;text-align:left}.gift-inner .question{text-align:left}.subtle-link{background:none;border:0;color:#b9c9e6;text-decoration:underline;margin-top:18px;font-size:12px}.gift-area .error{min-height:0}.gift-area #confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}.confetti-piece{position:absolute;top:-15px;width:8px;height:14px;border-radius:2px;animation:fall 2.2s linear forwards}.gift-area .hidden{display:none!important}@keyframes boxShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-5deg)}40%{transform:rotate(5deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(3deg)}}@keyframes lidFly{to{transform:translateY(-120px) rotate(35deg);opacity:0}}@keyframes boxDisappear{to{opacity:0;transform:scale(.5)}}@keyframes glowBurst{50%{transform:scale(1.7);opacity:1}100%{transform:scale(2.8);opacity:0}}@keyframes cardArrival{from{opacity:0;transform:translateY(28px) scale(.91)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes fall{to{transform:translateY(590px) rotate(600deg);opacity:0}}@media(max-width:600px){.gift-box{height:147px}.gift-body{inset:53px 4% 23px}.gift-lid{top:42px;left:0;right:0}.gift-ribbon-v{top:53px;height:70px}.gift-ribbon-h{top:86px;left:4%;right:4%}.gift-bow{font-size:39px;left:calc(50% - 16px);top:17px}.gift-num{font-size:9px}.voucher-left{padding:16px}.voucher-right{min-width:82px;padding:6px}.voucher-right strong{font-size:10px}.voucher-small{font-size:8px}.consult{padding:14px}.consult strong{font-size:14px}}@media(prefers-reduced-motion:reduce){.gift-box,.gift-box *,.confetti-piece,.voucher,.consult{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 <header><div class="brand">innerlab<b>.</b>survey ✦</div><div class="pill">SELF-GROWTH SURVEY</div></header>
-<section class="hero"><div class="eyebrow">Discover your next chapter</div><h1>Bạn muốn <span>phát triển điều gì</span> trong thời đại AI?</h1><p>Một khảo sát ngắn để lắng nghe điều bạn quan tâm, những thách thức bạn gặp phải và trải nghiệm học tập bạn thực sự mong muốn.</p><div class="chips"><span>✦ Khoảng 3–5 phút</span><span>✦ 5 phần ngắn</span><span>✦ Tự nguyện tham gia</span></div></section>
+<section class="hero"><div class="eyebrow">Discover your next chapter</div><h1>Bạn muốn <span>phát triển điều gì</span> trong thời đại AI?</h1><p>Một khảo sát ngắn để lắng nghe điều bạn quan tâm, những thách thức bạn gặp phải và trải nghiệm học tập bạn thực sự mong muốn.</p><div class="chips"><span>✦ Khoảng 3–5 phút</span><span>✦ 4 phần khảo sát</span><span>✦ Tự nguyện tham gia</span></div></section>
 <main class="card" id="survey">
-<div id="surveyArea"><div class="progress"><div class="progress-label"><span id="progressLabel">BƯỚC 1 / 5</span><span id="progressPct">20% hoàn thành</span></div><div class="track"><div class="fill" id="progressFill"></div></div></div><form id="surveyForm" class="body" novalidate><div id="stepArea"></div><div class="nav"><button type="button" class="btn secondary" id="back">← Quay lại</button><button type="button" class="btn primary" id="next">Tiếp tục →</button></div><div id="error" class="error" role="alert" aria-live="polite"></div></form><div class="privacy">🔒 Chúng tôi sử dụng câu trả lời để tổng hợp nhu cầu phát triển bản thân. Thông tin liên hệ là tùy chọn và chỉ dùng để gửi thông tin khi bạn đồng ý.</div></div>
-<div class="thanks hidden" id="thanks"><strong>✦</strong><h2>Cảm ơn bạn đã chia sẻ!</h2><p>Mỗi câu trả lời giúp chúng tôi hiểu rõ hơn cách mọi người mong muốn trưởng thành và thích nghi cùng AI.</p><button class="btn secondary" type="button" id="restart">Làm khảo sát mới</button></div>
+<div id="surveyArea"><div class="progress"><div class="progress-label"><span id="progressLabel">BƯỚC 1 / 4</span><span id="progressPct">25% hoàn thành</span></div><div class="track"><div class="fill" id="progressFill"></div></div></div><form id="surveyForm" class="body" novalidate><div id="stepArea"></div><div class="nav"><button type="button" class="btn secondary" id="back">← Quay lại</button><button type="button" class="btn primary" id="next">Tiếp tục →</button></div><div id="error" class="error" role="alert" aria-live="polite"></div></form><div class="privacy">🔒 Khảo sát phục vụ tổng hợp nhu cầu phát triển bản thân. Đăng ký nhận quà và để lại thông tin liên hệ hoàn toàn tự nguyện.</div></div>
+
+<section id="giftArea" class="gift-area hidden" aria-live="polite">
+ <div id="giftPick" class="gift-inner">
+  <div class="eyebrow">INNERLAB · DISCOVERY GIFT</div>
+  <h2>Hoàn thành rồi! 🎉</h2>
+  <p>Chọn một trong ba hộp quà để khám phá món quà Innerlab dành tặng bạn.</p>
+  <div class="gift-grid" id="giftGrid">
+   <button type="button" class="gift-box mint" data-box="1" aria-label="Mở hộp quà xanh ngọc"><span class="gift-glow"></span><span class="gift-lid"></span><span class="gift-ribbon-v"></span><span class="gift-body"></span><span class="gift-ribbon-h"></span><span class="gift-bow">✦</span><span class="gift-num">HỘP 01</span></button>
+   <button type="button" class="gift-box lilac" data-box="2" aria-label="Mở hộp quà tím"><span class="gift-glow"></span><span class="gift-lid"></span><span class="gift-ribbon-v"></span><span class="gift-body"></span><span class="gift-ribbon-h"></span><span class="gift-bow">✦</span><span class="gift-num">HỘP 02</span></button>
+   <button type="button" class="gift-box gold" data-box="3" aria-label="Mở hộp quà vàng"><span class="gift-glow"></span><span class="gift-lid"></span><span class="gift-ribbon-v"></span><span class="gift-body"></span><span class="gift-ribbon-h"></span><span class="gift-bow">✦</span><span class="gift-num">HỘP 03</span></button>
+  </div>
+  <p class="gift-caption">Cả 3 hộp đều chứa cùng một phần quà đặc biệt dành cho bạn.</p>
+ </div>
+ <div id="giftReveal" class="gift-inner hidden">
+  <div id="confetti" aria-hidden="true"></div>
+  <div class="eyebrow">YOU UNLOCKED A GIFT ✨</div>
+  <h2>Điều bất ngờ dành cho bạn!</h2>
+  <p>Innerlab gửi tặng bạn trọn bộ hai món quà:</p>
+  <div class="voucher">
+    <div class="voucher-left"><span class="voucher-brand">innerlab<span>.</span>survey</span><div class="voucher-amount">199K</div><div class="voucher-title">VOUCHER KHÓA HỌC</div><span class="voucher-small">Giá trị 199.000đ · Áp dụng theo điều kiện chương trình</span></div>
+    <div class="voucher-right"><span>✦</span><strong>DISCOVERY<br>GIFT</strong><small>YOUR NEXT CHAPTER</small></div>
+  </div>
+  <div class="consult"><div class="consult-icon">✧</div><div><strong>+ 01 buổi tư vấn 1:1 miễn phí</strong><p>Cùng chuyên gia trong lĩnh vực bạn chọn: <b>Tarot · Thần số học · Chiêm tinh học · Tử vi</b></p></div></div>
+  <p class="gift-caption">Voucher không phải tiền mặt. Điều kiện sử dụng và lịch tư vấn sẽ được xác nhận khi đăng ký.</p>
+  <button type="button" class="btn primary claim-btn" id="claimStart">Nhận quà ngay →</button>
+ </div>
+ <div id="giftClaim" class="gift-inner hidden">
+  <div class="eyebrow">YOUR GIFT · INNERLAB</div><h2>Đăng ký nhận quà 🎁</h2><p>Chọn lĩnh vực bạn quan tâm và để lại thông tin để chúng mình liên hệ trao quà.</p>
+  <form id="claimForm" novalidate>
+   <div class="question"><label class="q-label" for="claimName">Họ và tên <span class="star">*</span></label><input class="field" id="claimName" name="full_name" maxlength="100" autocomplete="name" required placeholder="Tên của bạn"></div>
+   <div class="question"><label class="q-label" for="claimContact">Email hoặc số điện thoại <span class="star">*</span></label><input class="field" id="claimContact" name="contact" maxlength="150" required placeholder="Thông tin để nhận quà"></div>
+   <fieldset class="question"><legend class="q-label">Lĩnh vực tư vấn 1:1 bạn muốn chọn <span class="star">*</span></legend><div class="options two">
+    <label class="choice"><input type="radio" name="expert_field" value="Tarot" required> Tarot</label>
+    <label class="choice"><input type="radio" name="expert_field" value="Thần số học"> Thần số học</label>
+    <label class="choice"><input type="radio" name="expert_field" value="Chiêm tinh học"> Chiêm tinh học</label>
+    <label class="choice"><input type="radio" name="expert_field" value="Tử vi"> Tử vi</label>
+   </div></fieldset>
+   <div class="question"><label class="q-label" for="claimCourse">Khóa học bạn quan tâm <span class="star">*</span></label><select class="field" name="preferred_course" id="claimCourse" required><option value="">Chọn lĩnh vực học</option><option>Hiểu và khám phá bản thân</option><option>Giao tiếp và sự tự tin</option><option>Định hướng tương lai</option><option>Ứng dụng AI</option><option>Khác / Chưa xác định</option></select></div>
+   <label class="agree"><input type="checkbox" name="gift_consent" required><span>Tôi đồng ý để Innerlab sử dụng thông tin liên hệ nhằm gửi voucher, liên hệ sắp xếp buổi tư vấn và giới thiệu khóa học liên quan. Tôi có thể từ chối các liên hệ quảng bá sau đó.</span></label>
+   <p id="claimError" class="error" role="alert" aria-live="polite"></p>
+   <button type="submit" class="btn primary claim-btn" id="claimSubmit">Đăng ký nhận quà ✦</button>
+  </form>
+  <button type="button" id="skipGift" class="subtle-link">Không nhận quà, chỉ hoàn tất khảo sát</button>
+ </div>
+</section>
+
+<div class="thanks hidden" id="thanks"><strong>✦</strong><h2>Cảm ơn bạn đã chia sẻ!</h2><p>Yêu cầu đã được gửi từ trình duyệt. Việc lưu vào Google Sheets chưa được xác minh tự động; Innerlab sẽ liên hệ khi đã nhận được đăng ký.</p><button class="btn secondary" type="button" id="restart">Làm khảo sát mới</button></div>
 </main>
 <footer>innerlab.survey · Grow with purpose · 2026</footer>
 </div>
@@ -49,14 +98,8 @@ const sections=[
 {id:'course_interest',label:'Bạn muốn Innerlab đồng hành cùng bạn theo cách nào?',type:'radio',required:true,options:['Đăng ký khóa học phát triển bản thân','Nhận tư vấn chọn khóa học phù hợp','Tìm hiểu voucher ưu đãi khóa học','Khác (vui lòng ghi rõ lý do)']},
 {id:'course_interest_other',label:'Bạn muốn chia sẻ lý do hoặc nhu cầu khác?',type:'text',required:false,placeholder:'Viết lý do hoặc nhu cầu của bạn...',depends:true},
 {id:'time',label:'Bạn thường thuận tiện tham gia khi nào?',type:'radio',required:true,options:['Tối các ngày trong tuần','Cuối tuần buổi sáng','Cuối tuần buổi chiều','Cuối tuần buổi tối','Linh hoạt theo lịch']}
-]},
-{title:'Một món quà cho hành trình của bạn',sub:'Nhận voucher ưu đãi và thông tin về những khóa học phù hợp, nếu bạn muốn kết nối cùng Innerlab.',questions:[
-{id:'contact_optin',label:'Bạn muốn nhận voucher ưu đãi và thông tin về các khóa học phát triển bản thân?',type:'radio',required:true,options:['Có, tôi muốn nhận voucher và thông tin khóa học','Không, tôi chỉ hoàn thành khảo sát']},
-{id:'full_name',label:'Tên của bạn',type:'input',required:false,placeholder:'Tên muốn được gọi...',contact:true},
-{id:'contact',label:'Email hoặc số điện thoại để nhận voucher',type:'input',required:false,placeholder:'Thông tin liên hệ...',contact:true},
-{id:'consent',label:'Tôi đồng ý cho innerlab.survey xử lý câu trả lời để tổng hợp khảo sát. Nếu chọn nhận voucher, tôi đồng ý nhận thông tin về voucher và các khóa học qua thông tin liên hệ đã cung cấp; tôi có thể từ chối các liên hệ tiếp theo.',type:'consent',required:true}
 ]}];
-let step=0;let answers={};
+let step=0;let answers={};let chosenBox=null;
 const $=id=>document.getElementById(id);
 function escapeHtml(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function render(){
@@ -66,28 +109,51 @@ for(let n=0;n<s.questions.length;n++){let q=s.questions[n],label='<span class="s
 if(q.type==='radio'||q.type==='check'){markup+='<fieldset class="question" data-question="'+q.id+'"><legend>'+label+'</legend>'+(q.type==='check'?'<p class="hint">Có thể chọn nhiều đáp án</p>':'')+'<div class="options '+(q.options.length>=6?'two':'')+'">'+q.options.map(v=>'<label class="choice"><input type="'+(q.type==='check'?'checkbox':'radio')+'" name="'+q.id+'" value="'+escapeHtml(v)+'" '+(q.type==='check'?(Array.isArray(answers[q.id])&&answers[q.id].includes(v)?'checked':''):(answers[q.id]===v?'checked':''))+'><span>'+escapeHtml(v)+'</span></label>').join('')+'</div></fieldset>';}
 else if(q.type==='consent'){markup+='<label class="agree"><input type="checkbox" name="'+q.id+'" '+(answers[q.id]?'checked':'')+'><span>'+escapeHtml(q.label)+'</span></label>';}
 else{markup+='<div class="question" '+(q.contact?'data-contact="true"':'')+(q.depends?'data-other="true"':'')+'><label class="q-label" for="'+q.id+'">'+label+'</label>'+(q.type==='text'?'<textarea':'<input type="text"')+' class="field" id="'+q.id+'" name="'+q.id+'" placeholder="'+escapeHtml(q.placeholder||'')+'" '+(q.type==='text'?'>'+escapeHtml(answers[q.id]||'')+'</textarea>':'value="'+escapeHtml(answers[q.id]||'')+'">')+'</div>';}}
-if(step===4)markup+='<div class="notice">🎁 Đăng ký nhận thông tin để nhận voucher ưu đãi khóa học khi chương trình phát hành. Giá trị voucher, hạn dùng và điều kiện áp dụng sẽ được thông báo rõ. Bạn vẫn có thể hoàn tất khảo sát mà không đăng ký.</div>';
-$('stepArea').innerHTML=markup;$('back').style.visibility=step===0?'hidden':'visible';$('next').textContent=step===4?'Gửi khảo sát ✦':'Tiếp tục →';$('error').textContent='';contactVisibility();otherVisibility();
+
+$('stepArea').innerHTML=markup;$('back').style.visibility=step===0?'hidden':'visible';$('next').textContent=step===3?'Hoàn thành khảo sát 🎁':'Tiếp tục →';$('error').textContent='';otherVisibility();
 }
 function collect(){sections[step].questions.forEach(q=>{let els=Array.from(document.getElementsByName(q.id));if(q.type==='check')answers[q.id]=els.filter(x=>x.checked).map(x=>x.value);else if(q.type==='radio')answers[q.id]=els.find(x=>x.checked)?.value||'';else if(q.type==='consent')answers[q.id]=Boolean(els[0]?.checked);else answers[q.id]=els[0]?.value.trim()||'';});}
-function valid(){for(const q of sections[step].questions){if(!q.required)continue;const v=answers[q.id];if(!v||(Array.isArray(v)&&!v.length)){$('error').textContent='Vui lòng hoàn thành những câu có dấu * trước khi tiếp tục.';return false;}}if(step===3&&answers.course_interest==='Khác (vui lòng ghi rõ lý do)'&&!answers.course_interest_other){$('error').textContent='Vui lòng điền lý do hoặc nhu cầu khác.';return false;}if(step===4&&answers.contact_optin==='Có, tôi muốn nhận voucher và thông tin khóa học'&&(!answers.full_name||!answers.contact)){$('error').textContent='Để nhận voucher, vui lòng nhập tên và email hoặc số điện thoại.';return false;}return true;}
-function contactVisibility(){let show=document.querySelector('input[name="contact_optin"]:checked')?.value==='Có, tôi muốn nhận voucher và thông tin khóa học';document.querySelectorAll('[data-contact]').forEach(el=>el.style.display=show?'':'none');}
-function otherVisibility(){let show=document.querySelector('input[name="course_interest"]:checked')?.value==='Khác (vui lòng ghi rõ lý do)';document.querySelectorAll('[data-other]').forEach(el=>el.style.display=show?'':'none');}
-$('surveyForm').addEventListener('change',e=>{if(e.target.name==='contact_optin')contactVisibility();if(e.target.name==='course_interest')otherVisibility();});
+function valid(){for(const q of sections[step].questions){if(!q.required)continue;const v=answers[q.id];if(!v||(Array.isArray(v)&&!v.length)){$('error').textContent='Vui lòng hoàn thành những câu có dấu * trước khi tiếp tục.';return false;}}if(step===3&&answers.course_interest==='Khác (vui lòng ghi rõ lý do)'&&!answers.course_interest_other){$('error').textContent='Vui lòng điền lý do hoặc nhu cầu khác.';return false;}return true;}
+
+function otherVisibility(){const v=document.querySelector('input[name="course_interest"]:checked')?.value;document.querySelectorAll('[data-other]').forEach(el=>el.style.display=v==='Khác (vui lòng ghi rõ lý do)'?'':'none');}
+$('surveyForm').addEventListener('change',e=>{if(e.target.name==='course_interest')otherVisibility();});
 $('back').onclick=()=>{collect();if(step>0){step--;render();$('survey').scrollIntoView({behavior:'smooth'});}};
-$('next').onclick=async()=>{
-collect();if(!valid())return;
-if(step<sections.length-1){step++;render();$('survey').scrollIntoView({behavior:'smooth'});return;}
-const button=$('next');button.disabled=true;button.textContent='Đang gửi...';$('error').textContent='';
-if(answers.contact_optin!=='Có, tôi muốn nhận voucher và thông tin khóa học'){answers.full_name='';answers.contact='';}
-try{
-if(!GOOGLE_SCRIPT_URL)throw Error('Website chưa được kết nối Google Sheets. Người quản trị cần cấu hình GOOGLE_SCRIPT_URL trước khi mở khảo sát.');
-await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...answers,submitted_at:new Date().toISOString(),survey_version:'1.0'})});
-$('surveyArea').classList.add('hidden');$('thanks').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
-}catch(e){$('error').textContent=e.message||'Không gửi được câu trả lời. Vui lòng thử lại.';}
-finally{button.disabled=false;button.textContent='Gửi khảo sát ✦';}
+$('next').onclick=()=>{
+ collect();if(!valid())return;
+ if(step<sections.length-1){step++;render();$('survey').scrollIntoView({behavior:'smooth'});return;}
+ $('surveyArea').classList.add('hidden');$('giftArea').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
 };
-$('restart').onclick=()=>{answers={};step=0;$('surveyArea').classList.remove('hidden');$('thanks').classList.add('hidden');render();$('survey').scrollIntoView({behavior:'smooth'});};
+document.querySelectorAll('.gift-box').forEach(b=>b.addEventListener('click',()=>{
+ if(chosenBox)return;chosenBox=b.dataset.box;
+ $('giftGrid').classList.add('is-opening');b.classList.add('open');
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ window.setTimeout(()=>{
+  $('giftPick').classList.add('hidden');$('giftReveal').classList.remove('hidden');
+  if(!reduced){const palette=['#8bf0d0','#c3a5ff','#f7cb80','#ffffff'];for(let i=0;i<52;i++){const p=document.createElement('span');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=palette[i%palette.length];p.style.animationDelay=Math.random()*.7+'s';$('confetti').appendChild(p);}window.setTimeout(()=>$('confetti').replaceChildren(),2900);}
+  $('survey').scrollIntoView({behavior:'smooth'});
+ },reduced?0:1250);
+}));
+$('claimStart').onclick=()=>{$('giftReveal').classList.add('hidden');$('giftClaim').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});};
+function cleanContact(){return {full_name:$('claimName').value.trim(),contact:$('claimContact').value.trim(),expert_field:document.querySelector('input[name="expert_field"]:checked')?.value||'',preferred_course:$('claimCourse').value};}
+async function sendSurvey(claim){
+ const endpoint=GOOGLE_SCRIPT_URL.trim();
+ if(!endpoint)throw Error('Chưa cấu hình Google Sheets. Người quản trị cần thêm đường dẫn Apps Script để lưu đăng ký.');
+ const payload={...answers,...claim,contact_optin:claim.gift_consent?'Có, tôi muốn nhận voucher và thông tin khóa học':'Không, tôi chỉ hoàn thành khảo sát',consent:true,gift_box:chosenBox||'',submitted_at:new Date().toISOString(),survey_version:'2.0'};
+ // no-cors submission cannot confirm database persistence. Do not claim verified delivery.
+ await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+ $('giftArea').classList.add('hidden');$('thanks').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});
+}
+$('claimForm').addEventListener('submit',async e=>{
+ e.preventDefault();const form=e.currentTarget,fields=cleanContact();
+ if(!fields.full_name||!fields.contact||!fields.expert_field||!fields.preferred_course||!form.elements.gift_consent.checked){$('claimError').textContent='Vui lòng nhập thông tin, chọn lĩnh vực và đồng ý nhận liên hệ để đăng ký quà.';return;}
+ const btn=$('claimSubmit');btn.disabled=true;btn.textContent='Đang gửi đăng ký...';$('claimError').textContent='';
+ try{await sendSurvey({...fields,gift_consent:true});}catch(err){$('claimError').textContent=err.message||'Không thể gửi. Vui lòng thử lại.';}finally{btn.disabled=false;btn.textContent='Đăng ký nhận quà ✦';}
+});
+$('skipGift').onclick=async()=>{
+ const btn=$('skipGift');btn.disabled=true;$('claimError').textContent='';
+ try{await sendSurvey({full_name:'',contact:'',expert_field:'',preferred_course:'',gift_consent:false});}catch(err){$('claimError').textContent=err.message||'Không thể gửi. Vui lòng thử lại.';}finally{btn.disabled=false;}
+};
+$('restart').onclick=()=>{answers={};step=0;chosenBox=null;$('surveyArea').classList.remove('hidden');$('giftArea').classList.add('hidden');$('giftPick').classList.remove('hidden');$('giftReveal').classList.add('hidden');$('giftClaim').classList.add('hidden');$('giftGrid').classList.remove('is-opening');document.querySelectorAll('.gift-box').forEach(b=>b.classList.remove('open'));$('claimForm').reset();$('thanks').classList.add('hidden');render();$('survey').scrollIntoView({behavior:'smooth'});};
 render();
 </script>
 </body>
