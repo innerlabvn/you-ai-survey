@@ -4,7 +4,11 @@ Website khảo sát **Nhu cầu phát triển bản thân trong thời đại AI
 
 ## Website
 
-- 5 bước, có thanh tiến trình và kiểm tra câu hỏi bắt buộc.
+- 4 phần khảo sát, có thanh tiến trình và kiểm tra câu hỏi bắt buộc.
+- Sau khảo sát: chọn 1 trong 3 hộp quà → hộp bung nắp → voucher 199K và 01 buổi tư vấn 1:1 miễn phí hiện cùng lúc → đăng ký nhận quà.
+- Các hộp đều có cùng gói quà; không quay số hoặc phân phối phần thưởng ngẫu nhiên.
+- Form nhận quà cho chọn Tarot, Thần số học, Chiêm tinh học hoặc Tử vi và khóa học quan tâm.
+- Người dùng có thể bỏ qua nhận quà để chỉ hoàn thành khảo sát.
 - Thông tin liên hệ là tùy chọn. Chỉ lưu thông tin liên hệ nếu người tham gia chọn nhận thông tin.
 - Dùng HTML, CSS và JavaScript thuần; không cần cài đặt thư viện.
 - **Chưa thu thập được câu trả lời cho đến khi chủ website kết nối Google Sheets.** Website sẽ báo lỗi cấu hình thay vì giả vờ đã gửi thành công.
