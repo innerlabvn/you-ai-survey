@@ -11,7 +11,7 @@ const SHEET_NAME = 'Responses';
 const COLUMNS = [
   'submitted_at','survey_version','age','occupation','focus','usage',
   'ai_uses','ai_feeling','skills','barriers','wish','topics','format',
-  'course_interest','course_interest_other','time','contact_optin','full_name','contact','consent'
+  'course_interest','course_interest_other','time','gift_box','expert_field','preferred_course','contact_optin','full_name','contact','consent'
 ];
 function doPost(e) {
   const lock = LockService.getScriptLock();
