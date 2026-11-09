@@ -11,7 +11,7 @@ const SHEET_NAME = 'Responses';
 const COLUMNS = [
   'submitted_at','survey_version','age','occupation','focus','usage',
   'ai_uses','ai_feeling','skills','barriers','wish','topics','format',
-  'course_interest','course_interest_other','time','gift_box','expert_field','preferred_course','contact_optin','full_name','contact','consent'
+  'course_interest','course_interest_other','time','gift_box','reward_code','reward_status','expert_field','preferred_course','contact_optin','full_name','contact','consent'
 ];
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -19,6 +19,8 @@ function doPost(e) {
     if (!e || !e.postData || !e.postData.contents) throw new Error('Empty request');
     const data = JSON.parse(e.postData.contents);
     if (data.consent !== true) throw new Error('Consent required');
+    const rewardCode = String(data.reward_code || '').trim();
+    if (!/^IL-(?:[A-HJ-NP-Z2-9]{4}-){3}[A-HJ-NP-Z2-9]{4}$/.test(rewardCode)) throw new Error('Invalid reward code');
     if (!data.age || !data.occupation || !data.usage) throw new Error('Missing required fields');
     if (data.course_interest === 'Khác (vui lòng ghi rõ lý do)' && !data.course_interest_other) throw new Error('Other reason required');
     if (data.contact_optin === 'Có, tôi muốn nhận voucher và thông tin khóa học' && (!data.full_name || !data.contact)) throw new Error('Contact details required for voucher');
@@ -36,8 +38,16 @@ function doPost(e) {
     if (missing.length) sheet.getRange(1, existing.length+1, 1, missing.length).setValues([missing]);
     const headers = sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
     const optin = data.contact_optin === 'Có, tôi muốn nhận voucher và thông tin khóa học';
+    // Do not store a duplicate reward code. Store codes as text to preserve formatting.
+    const codeColumn = headers.indexOf('reward_code') + 1;
+    if (codeColumn && sheet.getLastRow() > 1) {
+      const existingCodes = sheet.getRange(2, codeColumn, sheet.getLastRow()-1, 1).getValues();
+      if (existingCodes.some(row => String(row[0]) === rewardCode)) throw new Error('Reward code already recorded');
+    }
     const row = headers.map(key => {
       let v = (!optin && ['full_name','contact'].includes(key)) ? '' : data[key];
+      if (key === 'reward_code') v = rewardCode;
+      if (key === 'reward_status') v = optin ? 'Chờ xác nhận nhận quà' : 'Không đăng ký nhận quà';
       if (Array.isArray(v)) v = v.join(' | ');
       if (typeof v === 'boolean') v = String(v);
       if (v == null) v = '';
