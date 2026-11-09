@@ -22,6 +22,9 @@ function doPost(e) {
     if (!data.age || !data.occupation || !data.usage) throw new Error('Missing required fields');
     if (data.course_interest === 'Khác (vui lòng ghi rõ lý do)' && !data.course_interest_other) throw new Error('Other reason required');
     if (data.contact_optin === 'Có, tôi muốn nhận voucher và thông tin khóa học' && (!data.full_name || !data.contact)) throw new Error('Contact details required for voucher');
+    // `contact` is now exclusively a Vietnam mobile / Zalo number (kept for Sheet compatibility).
+    const phone = String(data.contact || '').replace(/[\s().-]/g, '');
+    if (data.contact_optin === 'Có, tôi muốn nhận voucher và thông tin khóa học' && !/^(?:0[35789]\d{8}|\+84[35789]\d{8})$/.test(phone)) throw new Error('Invalid Vietnam mobile / Zalo number');
     lock.waitLock(10000);
     const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     let sheet = spreadsheet.getSheetByName(SHEET_NAME);
