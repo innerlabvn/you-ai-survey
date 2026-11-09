@@ -207,10 +207,15 @@ $('claimStart').onclick=()=>{$('giftReveal').classList.add('hidden');$('giftClai
 $('copyRewardCode').onclick=async()=>{try{await navigator.clipboard.writeText(ensureRewardCode());const button=$('copyRewardCode');button.textContent='✓ Đã sao chép';window.setTimeout(()=>button.textContent='📋 Sao chép mã',1800);}catch(e){const button=$('copyRewardCode');button.textContent='Chọn và sao chép mã phía trên';}};
 function cleanContact(){return {full_name:$('claimName').value.trim(),contact:$('claimContact').value.trim(),expert_field:document.querySelector('input[name="expert_field"]:checked')?.value||'',preferred_course:$('claimCourse').value};}
 function validVietnamMobile(raw){const phone=raw.replace(/[\s().-]/g,'');return /^(?:0[35789]\d{8}|\+84[35789]\d{8})$/.test(phone);}
+// Vietnam has a fixed UTC+07:00 offset year-round. Store a human-readable local timestamp.
+function vietnamSubmittedTime(){
+ const local=new Date(Date.now()+7*60*60*1000);
+ return local.toISOString().slice(0,19).replace('T',' ')+' (GMT+7)';
+}
 async function sendSurvey(claim){
  const endpoint=GOOGLE_SCRIPT_URL.trim();
  if(!endpoint)throw Error('Chưa cấu hình Google Sheets. Người quản trị cần thêm đường dẫn Apps Script để lưu đăng ký.');
- const payload={...answers,...claim,reward_code:ensureRewardCode(),contact_optin:claim.gift_consent?'Có, tôi muốn nhận voucher và thông tin khóa học':'Không, tôi chỉ hoàn thành khảo sát',consent:true,gift_box:chosenBox||'',submitted_at:new Date().toISOString(),survey_version:'3.0'};
+ const payload={...answers,...claim,reward_code:ensureRewardCode(),contact_optin:claim.gift_consent?'Có, tôi muốn nhận voucher và thông tin khóa học':'Không, tôi chỉ hoàn thành khảo sát',consent:true,gift_box:chosenBox||'',submitted_at:vietnamSubmittedTime(),survey_version:'3.1'};
  // no-cors submission cannot confirm database persistence. Do not claim verified delivery.
  await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
  $('giftArea').classList.add('hidden');$('thanks').classList.remove('hidden');showRewardCode();$('survey').scrollIntoView({behavior:'smooth'});
