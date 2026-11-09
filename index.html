@@ -94,7 +94,7 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
   <div class="eyebrow">YOUR GIFT · INNERLAB</div><h2>Đăng ký nhận quà 🎁</h2><p>Chọn lĩnh vực bạn quan tâm và để lại thông tin để chúng mình liên hệ trao quà.</p>
   <form id="claimForm" novalidate>
    <div class="question"><label class="q-label" for="claimName">Họ và tên <span class="star">*</span></label><input class="field" id="claimName" name="full_name" maxlength="100" autocomplete="name" required placeholder="Tên của bạn"></div>
-   <div class="question"><label class="q-label" for="claimContact">Email hoặc số điện thoại <span class="star">*</span></label><input class="field" id="claimContact" name="contact" maxlength="150" required placeholder="Thông tin để nhận quà"></div>
+   <div class="question"><label class="q-label" for="claimContact">Số điện thoại / Zalo <span class="star">*</span></label><input class="field" id="claimContact" name="contact" type="tel" inputmode="tel" autocomplete="tel" maxlength="18" required placeholder="Ví dụ: 0912 345 678"><p class="hint">Ưu tiên số điện thoại có Zalo để Innerlab thuận tiện gửi thông tin nhận quà.</p></div>
    <fieldset class="question"><legend class="q-label">Lĩnh vực tư vấn 1:1 bạn muốn chọn <span class="star">*</span></legend><div class="options two">
     <label class="choice"><input type="radio" name="expert_field" value="Tarot" required> Tarot</label>
     <label class="choice"><input type="radio" name="expert_field" value="Thần số học"> Thần số học</label>
@@ -102,7 +102,7 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
     <label class="choice"><input type="radio" name="expert_field" value="Tử vi"> Tử vi</label>
    </div></fieldset>
    <div class="question"><label class="q-label" for="claimCourse">Khóa học bạn quan tâm <span class="star">*</span></label><select class="field" name="preferred_course" id="claimCourse" required><option value="">Chọn lĩnh vực học</option><option>Hiểu và khám phá bản thân</option><option>Giao tiếp và sự tự tin</option><option>Định hướng tương lai</option><option>Ứng dụng AI</option><option>Khác / Chưa xác định</option></select></div>
-   <label class="agree"><input type="checkbox" name="gift_consent" required><span>Tôi đồng ý để Innerlab sử dụng thông tin liên hệ nhằm gửi voucher, liên hệ sắp xếp buổi tư vấn và giới thiệu khóa học liên quan. Tôi có thể từ chối các liên hệ quảng bá sau đó.</span></label>
+   <label class="agree"><input type="checkbox" name="gift_consent" required><span>Tôi đồng ý để Innerlab liên hệ qua số điện thoại / Zalo tôi cung cấp nhằm gửi voucher, sắp xếp buổi tư vấn và giới thiệu các khóa học liên quan. Tôi có thể từ chối các liên hệ quảng bá sau đó.</span></label>
    <p id="claimError" class="error" role="alert" aria-live="polite"></p>
    <button type="submit" class="btn primary claim-btn" id="claimSubmit">Đăng ký nhận quà ✦</button>
   </form>
@@ -194,6 +194,7 @@ document.querySelectorAll('.gift-box').forEach(b=>b.addEventListener('click',()=
 }));
 $('claimStart').onclick=()=>{$('giftReveal').classList.add('hidden');$('giftClaim').classList.remove('hidden');$('survey').scrollIntoView({behavior:'smooth'});};
 function cleanContact(){return {full_name:$('claimName').value.trim(),contact:$('claimContact').value.trim(),expert_field:document.querySelector('input[name="expert_field"]:checked')?.value||'',preferred_course:$('claimCourse').value};}
+function validVietnamMobile(raw){const phone=raw.replace(/[\s().-]/g,'');return /^(?:0[35789]\d{8}|\+84[35789]\d{8})$/.test(phone);}
 async function sendSurvey(claim){
  const endpoint=GOOGLE_SCRIPT_URL.trim();
  if(!endpoint)throw Error('Chưa cấu hình Google Sheets. Người quản trị cần thêm đường dẫn Apps Script để lưu đăng ký.');
@@ -204,7 +205,8 @@ async function sendSurvey(claim){
 }
 $('claimForm').addEventListener('submit',async e=>{
  e.preventDefault();const form=e.currentTarget,fields=cleanContact();
- if(!fields.full_name||!fields.contact||!fields.expert_field||!fields.preferred_course||!form.elements.gift_consent.checked){$('claimError').textContent='Vui lòng nhập thông tin, chọn lĩnh vực và đồng ý nhận liên hệ để đăng ký quà.';return;}
+ if(!fields.full_name||!fields.contact||!fields.expert_field||!fields.preferred_course||!form.elements.gift_consent.checked){$('claimError').textContent='Vui lòng nhập họ tên, số điện thoại / Zalo, chọn lĩnh vực và đồng ý nhận liên hệ để đăng ký quà.';return;}
+ if(!validVietnamMobile(fields.contact)){$('claimError').textContent='Vui lòng nhập số di động Việt Nam hợp lệ (ví dụ 0912 345 678 hoặc +84 912 345 678).';$('claimContact').focus();return;}
  const btn=$('claimSubmit');btn.disabled=true;btn.textContent='Đang gửi đăng ký...';$('claimError').textContent='';
  try{await sendSurvey({...fields,gift_consent:true});}catch(err){$('claimError').textContent=err.message||'Không thể gửi. Vui lòng thử lại.';}finally{btn.disabled=false;btn.textContent='Đăng ký nhận quà ✦';}
 });
