@@ -32,6 +32,16 @@ Website khảo sát **Nhu cầu phát triển bản thân trong thời đại AI
 4. Đợi GitHub Pages xuất bản. Nếu chưa đổi repository thì địa chỉ là **https://innerlabvn.github.io/you-ai-survey/**.
 5. Kiểm tra website trên cả điện thoại và máy tính.
 
+## Mã nhận thưởng và buổi gặp 1:1
+
+- Khi hoàn thành khảo sát, website tạo một **mã nhận quà ngẫu nhiên** riêng cho lượt khảo sát, dạng `IL-XXXX-XXXX-XXXX-XXXX`.
+- Mã xuất hiện khi hộp quà mở, tại form đăng ký và trên màn hình kết thúc. Người tham gia có thể sao chép để đối chiếu.
+- Năm chủ đề buổi gặp 1:1: Tarot, Thần số học, Chiêm tinh học, Tử vi, **Khám phá tính cách**.
+- Google Apps Script ghi hai cột `reward_code` và `reward_status`. `reward_status` mặc định là `Chờ xác nhận nhận quà` hoặc `Không đăng ký nhận quà`. Người tổ chức có thể cập nhật thành `Đã trao` khi đổi quà.
+- Mã sử dụng bộ tạo số ngẫu nhiên mã hóa của trình duyệt (80 bit). Xác suất trùng mã cực thấp, và Apps Script kiểm tra trùng trước khi thêm dòng. Đây là **mã riêng theo lượt khảo sát**, không phải cách đảm bảo mỗi người chỉ có một mã nếu họ điền lại nhiều lần.
+- Không phải mã được xác nhận chỉ vì đã hiển thị: **Google Sheets cần được kết nối và cần kiểm tra dữ liệu thực sự được lưu**, vì `no-cors` không cho trang xác minh phản hồi ghi thành công.
+- Nếu đã có một bản Apps Script đang chạy, cần **cập nhật và triển khai phiên bản mới** sau khi thay đổi `Code.gs` trên GitHub; cập nhật GitHub không tự thay đổi bản Apps Script trong tài khoản Google.
+
 ## Kết nối Google Sheets
 
 1. Tạo Google Sheet, mở **Extensions → Apps Script**.
