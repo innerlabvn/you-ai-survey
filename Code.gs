@@ -49,7 +49,8 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     if (data.consent !== true) throw new Error('Consent required');
     const rewardCode = String(data.reward_code || '').trim();
-    if (!/^IL-(?:[A-HJ-NP-Z2-9]{4}-){3}[A-HJ-NP-Z2-9]{4}$/.test(rewardCode)) throw new Error('Invalid reward code');
+    // Accept five-digit codes going forward and legacy IL-XXXX-... codes previously issued.
+    if (!/^(?:[0-9]{5}|IL-(?:[A-HJ-NP-Z2-9]{4}-){3}[A-HJ-NP-Z2-9]{4})$/.test(rewardCode)) throw new Error('Invalid reward code');
     if (!data.age || !data.occupation || !data.usage) throw new Error('Missing required fields');
     if (data.course_interest === 'Khác (vui lòng ghi rõ lý do)' && !data.course_interest_other) throw new Error('Other reason required');
     if (data.contact_optin === 'Có, tôi muốn nhận voucher và thông tin khóa học' && (!data.full_name || !data.contact)) throw new Error('Contact details required for voucher');
