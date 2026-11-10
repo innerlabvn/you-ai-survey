@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="innerlabTitle">
+<title id="innerlabTitle">Innerlab — hành trình khám phá bản thân</title>
+<defs>
+  <linearGradient id="outer" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#30217b"/><stop offset="1" stop-color="#201052"/>
+  </linearGradient>
+  <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#b49cf7"/><stop offset=".64" stop-color="#9578e4"/><stop offset="1" stop-color="#8567d5"/>
+  </linearGradient>
+  <linearGradient id="inside" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4b349f"/><stop offset="1" stop-color="#372079"/>
+  </linearGradient>
+  <linearGradient id="pathway" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#cdf9df"/><stop offset=".55" stop-color="#b8f8dc"/><stop offset="1" stop-color="#84eaca"/>
+  </linearGradient>
+</defs>
+<!-- Portal / inner world -->
+<path d="M0 320V160A160 160 0 0 1 320 160V320Z" fill="url(#outer)"/>
+<path d="M43 320V167A117 117 0 0 1 277 167V320Z" fill="url(#rim)"/>
+<path d="M72 320V174A88 88 0 0 1 248 174V320Z" fill="url(#inside)"/>
+<!-- Four-point inner spark -->
+<path d="M160 108C165 143 176 155 206 160C176 165 165 180 160 211C154 180 144 166 114 160C144 154 154 141 160 108Z" fill="#fffefc"/>
+<!-- Path of discovery, rising inward -->
+<path d="M0 320C9 294 37 279 72 264C114 246 157 239 182 224C202 211 192 198 168 187C197 195 225 212 221 229C218 249 182 262 150 280C122 296 120 310 135 320H0Z" fill="url(#pathway)"/>
+</svg>
