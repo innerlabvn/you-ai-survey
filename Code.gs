@@ -68,16 +68,22 @@ function doPost(e) {
     if (missing.length) sheet.getRange(1, existing.length+1, 1, missing.length).setValues([missing]);
     const headers = sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
     const optin = data.contact_optin === 'Có, tôi muốn nhận voucher và thông tin khóa học';
-    // Do not store a duplicate reward code. Store codes as text to preserve formatting.
+    // Five-digit codes are short and may collide. Do NOT drop someone's registration on collision.
+    // Keep the submitted code as text and flag it for staff to reissue a distinct code.
     const codeColumn = headers.indexOf('reward_code') + 1;
-    if (codeColumn && sheet.getLastRow() > 1) {
-      const existingCodes = sheet.getRange(2, codeColumn, sheet.getLastRow()-1, 1).getValues();
-      if (existingCodes.some(row => String(row[0]) === rewardCode)) throw new Error('Reward code already recorded');
+    const statusColumn = headers.indexOf('reward_status') + 1;
+    let duplicateCode = false;
+    if (optin && codeColumn && sheet.getLastRow() > 1) {
+      const existingRows = sheet.getRange(2,1,sheet.getLastRow()-1,sheet.getLastColumn()).getValues();
+      duplicateCode = existingRows.some(row =>
+        String(row[codeColumn - 1]).trim() === rewardCode &&
+        (!statusColumn || String(row[statusColumn - 1]) !== 'Không đăng ký nhận quà')
+      );
     }
     const row = headers.map(key => {
       let v = (!optin && ['full_name','contact'].includes(key)) ? '' : data[key];
       if (key === 'reward_code') v = rewardCode;
-      if (key === 'reward_status') v = optin ? 'Chờ xác nhận nhận quà' : 'Không đăng ký nhận quà';
+      if (key === 'reward_status') v = !optin ? 'Không đăng ký nhận quà' : duplicateCode ? 'Mã trùng - cần cấp lại' : 'Chờ xác nhận nhận quà';
       if (Array.isArray(v)) v = v.join(' | ');
       if (typeof v === 'boolean') v = String(v);
       if (v == null) v = '';
