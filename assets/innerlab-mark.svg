@@ -1,25 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="innerlabTitle">
-<title id="innerlabTitle">Innerlab — hành trình khám phá bản thân</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+<title id="title">Innerlabvn</title>
+<desc id="desc">Khung cửa chữ nhật bo góc tím, ngôi sao bốn cánh trắng và con đường khám phá xanh mint.</desc>
 <defs>
-  <linearGradient id="outer" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#30217b"/><stop offset="1" stop-color="#201052"/>
-  </linearGradient>
-  <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#b49cf7"/><stop offset=".64" stop-color="#9578e4"/><stop offset="1" stop-color="#8567d5"/>
-  </linearGradient>
-  <linearGradient id="inside" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#4b349f"/><stop offset="1" stop-color="#372079"/>
-  </linearGradient>
-  <linearGradient id="pathway" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#cdf9df"/><stop offset=".55" stop-color="#b8f8dc"/><stop offset="1" stop-color="#84eaca"/>
-  </linearGradient>
+ <linearGradient id="outer" x1=".08" y1=".05" x2=".98" y2="1">
+  <stop offset="0" stop-color="#8157E7"/><stop offset=".37" stop-color="#5128B2"/><stop offset="1" stop-color="#2F1777"/>
+ </linearGradient>
+ <linearGradient id="rim" x1="0" y1="0" x2=".93" y2="1">
+  <stop offset="0" stop-color="#C7A4FF"/><stop offset=".48" stop-color="#9163E9"/><stop offset="1" stop-color="#6637C6"/>
+ </linearGradient>
+ <linearGradient id="inner" x1=".05" y1=".06" x2=".95" y2="1">
+  <stop offset="0" stop-color="#7351D0"/><stop offset=".45" stop-color="#542DA9"/><stop offset="1" stop-color="#301575"/>
+ </linearGradient>
+ <linearGradient id="road" x1=".07" y1=".9" x2=".9" y2=".08">
+  <stop offset="0" stop-color="#68E9C1"/><stop offset=".53" stop-color="#A9F8DA"/><stop offset="1" stop-color="#76F0D3"/>
+ </linearGradient>
 </defs>
-<!-- Portal / inner world -->
-<path d="M0 320V160A160 160 0 0 1 320 160V320Z" fill="url(#outer)"/>
-<path d="M43 320V167A117 117 0 0 1 277 167V320Z" fill="url(#rim)"/>
-<path d="M72 320V174A88 88 0 0 1 248 174V320Z" fill="url(#inside)"/>
-<!-- Four-point inner spark -->
-<path d="M160 108C165 143 176 155 206 160C176 165 165 180 160 211C154 180 144 166 114 160C144 154 154 141 160 108Z" fill="#fffefc"/>
-<!-- Path of discovery, rising inward -->
-<path d="M0 320C9 294 37 279 72 264C114 246 157 239 182 224C202 211 192 198 168 187C197 195 225 212 221 229C218 249 182 262 150 280C122 296 120 310 135 320H0Z" fill="url(#pathway)"/>
+<!-- Rectangular window: all four corners rounded, not an arched headstone. -->
+<rect x="13" y="10" width="294" height="300" rx="39" fill="url(#outer)"/>
+<rect x="48" y="44" width="224" height="266" rx="49" fill="url(#rim)"/>
+<rect x="76" y="70" width="168" height="240" rx="37" fill="url(#inner)"/>
+<!-- Spark of self-discovery -->
+<path d="M165 99C173 139 185 151 224 159C184 166 173 179 165 220C156 180 143 167 103 159C142 150 156 138 165 99Z" fill="#FFFDFC"/>
+<!-- Mint path winding into the doorway -->
+<path d="M13 310C33 275 63 256 102 240C141 225 178 218 190 199C201 181 182 173 168 168C204 171 239 194 231 216C223 238 191 253 159 271C133 286 120 299 122 310H13Z" fill="url(#road)"/>
 </svg>
