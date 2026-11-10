@@ -32,15 +32,17 @@ Website khảo sát **Nhu cầu phát triển bản thân trong thời đại AI
 4. Đợi GitHub Pages xuất bản. Nếu chưa đổi repository thì địa chỉ là **https://innerlabvn.github.io/you-ai-survey/**.
 5. Kiểm tra website trên cả điện thoại và máy tính.
 
-## Mã nhận thưởng và buổi gặp 1:1
+## Mã nhận thưởng 5 chữ số và voucher in sẵn
 
-- Khi hoàn thành khảo sát, website tạo một **mã nhận quà ngẫu nhiên** riêng cho lượt khảo sát, dạng `IL-XXXX-XXXX-XXXX-XXXX`.
-- Mã xuất hiện khi hộp quà mở, tại form đăng ký và trên màn hình kết thúc. Người tham gia có thể sao chép để đối chiếu.
-- Năm chủ đề buổi gặp 1:1: Tarot, Thần số học, Chiêm tinh học, Tử vi, **Khám phá tính cách**.
-- Google Apps Script ghi hai cột `reward_code` và `reward_status`. `reward_status` mặc định là `Chờ xác nhận nhận quà` hoặc `Không đăng ký nhận quà`. Người tổ chức có thể cập nhật thành `Đã trao` khi đổi quà.
-- Mã sử dụng bộ tạo số ngẫu nhiên mã hóa của trình duyệt (80 bit). Xác suất trùng mã cực thấp, và Apps Script kiểm tra trùng trước khi thêm dòng. Đây là **mã riêng theo lượt khảo sát**, không phải cách đảm bảo mỗi người chỉ có một mã nếu họ điền lại nhiều lần.
-- Không phải mã được xác nhận chỉ vì đã hiển thị: **Google Sheets cần được kết nối và cần kiểm tra dữ liệu thực sự được lưu**, vì `no-cors` không cho trang xác minh phản hồi ghi thành công.
-- Nếu đã có một bản Apps Script đang chạy, cần **cập nhật và triển khai phiên bản mới** sau khi thay đổi `Code.gs` trên GitHub; cập nhật GitHub không tự thay đổi bản Apps Script trong tài khoản Google.
+- Từ khảo sát phiên bản 3.2, mã quà là **5 chữ số** ngẫu nhiên từ `10000` đến `99999`; người tham gia có thể chép hoặc sao chép trực tiếp. Mã xuất hiện ở màn hình mở quà, form nhận quà và màn hình kết thúc.
+- Google Sheets lưu mã trong cột `reward_code` theo định dạng **văn bản**. Các mã cũ `IL-XXXX-...` vẫn được giữ nguyên và receiver chấp nhận cả hai định dạng để không làm hỏng lịch sử.
+- Vì chỉ có 90.000 mã 5 chữ số nên **có thể trùng mã** khi lượng khảo sát tăng. Apps Script không làm mất dữ liệu vì trùng; thay vào đó ghi đăng ký và đánh dấu `reward_status` là `Mã trùng - cần cấp lại`. Nhân sự phải kiểm tra và cấp lại mã trước khi trao voucher.
+- Mã 5 chữ số **không phải mã bảo mật** hay bảo đảm mỗi cá nhân chỉ được nhận một lần. Mã chỉ có hiệu lực sau khi Innerlabvn xác nhận dữ liệu và điều kiện chương trình.
+- Voucher in trên giấy có 5 ô trống để ghi tay mã tương ứng. Mỗi voucher nên được cấp sau khi đối chiếu đăng ký thực tế trên Google Sheets.
+- **BẮT BUỘC TRIỂN KHAI LẠI APPS SCRIPT:** cập nhật đầy đủ `Code.gs` trong Google Apps Script, sau đó chọn `Deploy → Manage deployments → Edit → Version: New version → Deploy`. Chỉ cập nhật GitHub không cập nhật mã Apps Script đang chạy.
+- Website gửi qua `no-cors` nên không thể xác minh phản hồi đã ghi thành công. **Đặc biệt quan trọng:** cho đến khi triển khai lại Apps Script, bản đang chạy sẽ từ chối mã 5 số dù người tham gia nhìn thấy thông báo gửi.
+- Năm chủ đề của buổi gặp gỡ 1:1: Tarot, Thần số học, Chiêm tinh học, Tử vi, Khám phá tính cách.
+
 
 ## Kết nối Google Sheets
 
