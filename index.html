@@ -60,6 +60,9 @@ footer{color:#a6a7c9}body::after{content:"";pointer-events:none;position:fixed;i
 .lang-switch a{font-size:11px;line-height:1;text-decoration:none;padding:9px 11px;border-radius:999px;font-weight:800;color:#c9c7e5;transition:background .2s}
 .lang-switch a[aria-current=page]{background:#b6f5e2;color:#1b2850}.lang-switch a:focus-visible{outline:2px solid #b6f5e2;outline-offset:3px}
 @media(max-width:440px){.lang-switch a{padding:8px 7px;font-size:10px}.header-actions{gap:5px}}
+/* On small screens, keep sound accessible as an icon so the language switch fits. */
+@media(max-width:540px){.sound-toggle{display:inline-flex;align-items:center;justify-content:center;font-size:0!important;width:38px;min-width:38px;padding:5px!important}.sound-toggle::before{content:"♪";font-size:19px;line-height:1}.sound-toggle[aria-pressed="true"]::before{content:"♫"}}
+
 </style>
 </head>
 <body>
